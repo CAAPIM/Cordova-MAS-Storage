@@ -1,0 +1,490 @@
+//
+//  MASStoragePlugin.m
+//
+//  Copyright (c) 2016 CA, Inc.
+//
+//  This software may be modified and distributed under the terms
+//  of the MIT license. See the LICENSE file for details.
+//
+
+#import "MASStoragePlugin.h"
+
+#import <MASStorage/MASStorage.h>
+
+
+static NSString *const MASStoragePluginMimeTypeText = @"text/plain";
+static NSString *const MASStoragePluginMimeTypeJSON = @"application/json";
+static NSString *const MASStoragePluginMimeByte = @"application/octet-stream";
+static NSString *const MASStoragePluginMimeTypePNG = @"image/png";
+static NSString *const MASStoragePluginMimeTypeJPG = @"image/jpg";
+
+
+@implementation MASStoragePlugin
+
+
+#pragma mark - Lifecycle
+
+- (void)pluginInitialize
+{
+
+}
+
+
+#pragma mark - LocalStorage
+
+#pragma mark - Save/Update methods
+
+- (void)saveToLocal:(CDVInvokedUrlCommand *)command {
+    
+    NSString *mimeType = [command.arguments objectAtIndex:0];
+    NSString *key = [command.arguments objectAtIndex:1];
+    MASObject *object = [command.arguments objectAtIndex:2];
+    MASLocalStorageSegment mode =
+    (MASLocalStorageSegment)[[command.arguments objectAtIndex:3] integerValue];
+    
+    [MAS enableLocalStorage];
+    [MASLocalStorage saveObject:object withKey:key type:mimeType mode:mode
+                     completion:^(BOOL success, NSError *error){
+                         
+                         if (success) {
+                             
+                             CDVPluginResult *result =
+                                [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:YES];
+                             [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+                         }
+                         else if (error) {
+                             
+                             NSDictionary *errorInfo = @{@"errorCode":[NSNumber numberWithInteger:[error code]],
+                                                         @"errorMessage":[error localizedDescription],
+                                                         @"errorInfo":[error userInfo]};
+                             
+                             CDVPluginResult *result =
+                                [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
+                                              messageAsDictionary:errorInfo];
+                             
+                             [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+                         }
+                     }];
+}
+
+
+- (void)saveSecurelyToLocal:(CDVInvokedUrlCommand*)command {
+    
+    NSString *mimeType = [command.arguments objectAtIndex:0];
+    NSString *key = [command.arguments objectAtIndex:1];
+    NSObject *object = [command.arguments objectAtIndex:2];
+    MASLocalStorageSegment mode =
+        (MASLocalStorageSegment)[[command.arguments objectAtIndex:3] integerValue];
+    NSString *password = [command.arguments objectAtIndex:4];
+    
+    [MASLocalStorage saveObject:object withKey:key type:mimeType mode:mode password:password
+                     completion:^(BOOL success, NSError *error){
+                         
+                         if (success) {
+                             
+                             CDVPluginResult *result =
+                                [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:YES];
+                             [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+                         }
+                         else if (error) {
+                             
+                             NSDictionary *errorInfo = @{@"errorCode":[NSNumber numberWithInteger:[error code]],
+                                                         @"errorMessage":[error localizedDescription],
+                                                         @"errorInfo":[error userInfo]};
+                             
+                             CDVPluginResult *result =
+                             [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
+                                           messageAsDictionary:errorInfo];
+                             
+                             [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+                         }
+                     }];
+}
+
+
+#pragma mark - Find methods
+
+- (void)findByUsingKeyAndModeLocal:(CDVInvokedUrlCommand *)command {
+    
+    NSString *key = [command.arguments objectAtIndex:0];
+    MASLocalStorageSegment mode =
+        (MASLocalStorageSegment)[[command.arguments objectAtIndex:1] integerValue];
+    
+    [MAS enableLocalStorage];
+    [MASLocalStorage findObjectUsingKey:key mode:mode
+                             completion:^(MASObject * _Nullable object, NSError * _Nullable error){
+                                 
+                                 
+                                 if (object) {
+                                     
+                                     NSString *mimeType = [object objectForKey:@"type"];
+                                     
+                                     if ([mimeType isEqualToString:MASStoragePluginMimeTypeText] ||
+                                         [mimeType isEqualToString:MASStoragePluginMimeTypeJSON]) {
+                                         
+                                         //
+                                         // Confirm there is a payload
+                                         //
+                                         NSString *value = nil;
+                                         
+                                         //
+                                         // Check if the payload has already been converted to a string or needs
+                                         // to be converted
+                                         //
+                                         if ([[object objectForKey:@"value"] isKindOfClass:[NSString class]]) {
+                                             
+                                             value = (NSString *)[object objectForKey:@"value"];
+                                         }
+                                         else {
+                                             
+                                             // Decode the payload
+                                             value = [[NSString alloc] initWithData:[object objectForKey:@"value"] encoding:NSUTF8StringEncoding];
+                                         }
+                                         
+                                         CDVPluginResult *result =
+                                         [CDVPluginResult resultWithStatus:CDVCommandStatus_OK
+                                                           messageAsString:value];
+                                         
+                                         [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+                                     }
+                                     else if ([mimeType isEqualToString:MASStoragePluginMimeTypePNG] ||
+                                              [mimeType isEqualToString:MASStoragePluginMimeTypeJPG] ||
+                                              [mimeType isEqualToString:MASStoragePluginMimeByte]) {
+                                         
+                                         if ([[object objectForKey:@"value"] isKindOfClass:[NSData class]]) {
+                                             
+                                             NSData *imageData = [object objectForKey:@"value"];
+                                             
+                                             //
+                                             // Check if there is metadata inside the payload. If so, change the way of loading the image
+                                             //
+                                             NSString *base64String =
+                                                [[NSString alloc] initWithData:imageData encoding:NSUTF8StringEncoding];
+                                             
+                                             if (base64String) {
+                                                 
+                                                 NSURL *imageUrl = [NSURL URLWithString:base64String];
+                                                 imageData = [NSData dataWithContentsOfURL:imageUrl];
+                                             }
+                                             
+                                             CDVPluginResult *result =
+                                             [CDVPluginResult resultWithStatus:CDVCommandStatus_OK
+                                                          messageAsArrayBuffer:imageData];
+                                             
+                                             [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+                                         }
+                                     }
+                                 }
+                                 else if (error) {
+                                     
+                                     NSDictionary *errorInfo = @{@"errorCode":[NSNumber numberWithInteger:[error code]],
+                                                                 @"errorMessage":[error localizedDescription],
+                                                                 @"errorInfo":[error userInfo]};
+                                     
+                                     CDVPluginResult *result =
+                                     [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
+                                                   messageAsDictionary:errorInfo];
+                                     
+                                     [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+                                 }
+                                 else {
+                                     
+                                     CDVPluginResult *result =
+                                     [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
+                                                   messageAsBool:NO];
+                                     
+                                     [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+                                 }
+                             }];
+}
+
+
+- (void)findAllUsingModeLocal:(CDVInvokedUrlCommand*)command {
+    
+    MASLocalStorageSegment mode =
+        (MASLocalStorageSegment)[[command.arguments objectAtIndex:0] integerValue];
+    
+    [MASLocalStorage findObjectsUsingMode:mode
+                               completion:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+                                   
+                                   if (objects) {
+                                       
+                                       CDVPluginResult *result =
+                                        [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsArray:objects];
+                                       [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+                                   }
+                                   else if (error) {
+                                       
+                                       NSDictionary *errorInfo = @{@"errorCode":[NSNumber numberWithInteger:[error code]],
+                                                                   @"errorMessage":[error localizedDescription],
+                                                                   @"errorInfo":[error userInfo]};
+                                       
+                                       CDVPluginResult *result =
+                                       [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
+                                                     messageAsDictionary:errorInfo];
+                                       
+                                       [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+                                   }
+                               }];
+}
+
+
+#pragma mark - Delete methods
+
+- (void)deleteByUsingKeyAndModeLocal:(CDVInvokedUrlCommand*)command {
+    
+    NSString *key = [command.arguments objectAtIndex:0];
+    MASLocalStorageSegment mode =
+        (MASLocalStorageSegment)[[command.arguments objectAtIndex:1] integerValue];
+    
+    [MASLocalStorage deleteObjectUsingKey:key mode:mode
+                               completion:^(BOOL success, NSError * _Nullable error){
+                                   
+                                   if (success) {
+                                       
+                                       CDVPluginResult *result =
+                                       [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:YES];
+                                       [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+                                   }
+                                   else if (error) {
+                                       
+                                       NSDictionary *errorInfo = @{@"errorCode":[NSNumber numberWithInteger:[error code]],
+                                                                   @"errorMessage":[error localizedDescription],
+                                                                   @"errorInfo":[error userInfo]};
+                                       
+                                       CDVPluginResult *result =
+                                       [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
+                                                     messageAsDictionary:errorInfo];
+                                       
+                                       [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+                                   }
+                               }];
+}
+
+
+- (void)deleteAllUsingModeLocal:(CDVInvokedUrlCommand*)command {
+    
+    MASLocalStorageSegment mode =
+        (MASLocalStorageSegment)[[command.arguments objectAtIndex:0] integerValue];
+    
+    [MASLocalStorage deleteAllObjectsUsingMode:mode
+                                    completion:^(BOOL success, NSError * _Nullable error){
+                                        
+                                        if (success) {
+                                            
+                                            CDVPluginResult *result =
+                                            [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:YES];
+                                            [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+                                        }
+                                        else if (error) {
+                                            
+                                            NSDictionary *errorInfo = @{@"errorCode":[NSNumber numberWithInteger:[error code]],
+                                                                        @"errorMessage":[error localizedDescription],
+                                                                        @"errorInfo":[error userInfo]};
+                                            
+                                            CDVPluginResult *result =
+                                            [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
+                                                          messageAsDictionary:errorInfo];
+                                            
+                                            [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+                                        }
+                                    }];
+}
+
+
+#pragma mark - CloudStorage
+
+#pragma mark - Save/Update methods
+
+- (void)saveToCloud:(CDVInvokedUrlCommand *)command {
+    
+    NSString *mimeType = [command.arguments objectAtIndex:0];
+    NSString *key = [command.arguments objectAtIndex:1];
+    NSObject *object = [command.arguments objectAtIndex:2];
+    MASCloudStorageSegment mode =
+        (MASCloudStorageSegment)[[command.arguments objectAtIndex:3] integerValue];
+    
+    [MASCloudStorage saveObject:object withKey:key type:mimeType mode:mode
+                     completion:^(BOOL success, NSError *error){
+                         
+                         if (success) {
+                             
+                             CDVPluginResult *result =
+                                [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:YES];
+                             [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+                         }
+                         else if (error) {
+                             
+                             NSDictionary *errorInfo = @{@"errorCode":[NSNumber numberWithInteger:[error code]],
+                                                         @"errorMessage":[error localizedDescription],
+                                                         @"errorInfo":[error userInfo]};
+                             
+                             CDVPluginResult *result =
+                                [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
+                                              messageAsDictionary:errorInfo];
+                             
+                             [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+                         }
+                     }];
+}
+
+
+#pragma mark - Find methods
+
+- (void)findByUsingKeyAndModeCloud:(CDVInvokedUrlCommand *)command {
+    
+    NSString *key = [command.arguments objectAtIndex:0];
+    MASCloudStorageSegment mode =
+        (MASCloudStorageSegment)[[command.arguments objectAtIndex:1] integerValue];
+    
+    [MASCloudStorage findObjectUsingKey:key mode:mode
+                             completion:^(MASObject * _Nullable object, NSError * _Nullable error){
+                                 
+                                 if (object) {
+                                     
+                                     NSString *mimeType = [object objectForKey:@"type"];
+                                     
+                                     if ([mimeType isEqualToString:MASStoragePluginMimeTypeText] ||
+                                         [mimeType isEqualToString:MASStoragePluginMimeTypeJSON]) {
+                                         
+                                         //
+                                         // Confirm there is a payload
+                                         //
+                                         NSString *value = nil;
+                                         
+                                         //
+                                         // Check if the payload has already been converted to a string or needs
+                                         // to be converted
+                                         //
+                                         if ([[object objectForKey:@"value"] isKindOfClass:[NSString class]]) {
+                                             
+                                             value = (NSString *)[object objectForKey:@"value"];
+                                         }
+                                         else {
+                                             
+                                             // Decode the payload
+                                             value = [[NSString alloc] initWithData:[object objectForKey:@"value"] encoding:NSUTF8StringEncoding];
+                                         }
+                                         
+                                         CDVPluginResult *result =
+                                         [CDVPluginResult resultWithStatus:CDVCommandStatus_OK
+                                                           messageAsString:value];
+                                         
+                                         [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+                                     }
+                                     else if ([mimeType isEqualToString:MASStoragePluginMimeTypePNG] ||
+                                              [mimeType isEqualToString:MASStoragePluginMimeTypeJPG] ||
+                                              [mimeType isEqualToString:MASStoragePluginMimeByte]) {
+                                         
+                                         if ([[object objectForKey:@"value"] isKindOfClass:[NSData class]]) {
+                                             
+                                             NSData *imageData = [object objectForKey:@"value"];
+                                             
+                                             //
+                                             // Check if there is metadata inside the payload. If so, change the way of loading the image
+                                             //
+                                             NSString *base64String =
+                                             [[NSString alloc] initWithData:imageData encoding:NSUTF8StringEncoding];
+                                             
+                                             if (base64String) {
+                                                 
+                                                 NSURL *imageUrl = [NSURL URLWithString:base64String];
+                                                 imageData = [NSData dataWithContentsOfURL:imageUrl];
+                                             }
+                                             
+                                             CDVPluginResult *result =
+                                             [CDVPluginResult resultWithStatus:CDVCommandStatus_OK
+                                                          messageAsArrayBuffer:imageData];
+                                             
+                                             [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+                                         }
+                                     }
+                                 }
+                                 else if (error) {
+                                     
+                                     NSDictionary *errorInfo = @{@"errorCode":[NSNumber numberWithInteger:[error code]],
+                                                                 @"errorMessage":[error localizedDescription],
+                                                                 @"errorInfo":[error userInfo]};
+                                     
+                                     CDVPluginResult *result =
+                                     [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
+                                                   messageAsDictionary:errorInfo];
+                                     
+                                     [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+                                 }
+                                 else {
+                                     
+                                     CDVPluginResult *result =
+                                     [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
+                                                         messageAsBool:NO];
+                                     
+                                     [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+                                 }                                 
+                             }];
+}
+
+
+- (void)findAllUsingModeCloud:(CDVInvokedUrlCommand*)command {
+    
+    MASCloudStorageSegment mode =
+        (MASCloudStorageSegment)[[command.arguments objectAtIndex:0] integerValue];
+    
+    [MASCloudStorage findObjectsUsingMode:mode
+                               completion:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+                                   
+                                   if (objects) {
+                                       
+                                       CDVPluginResult *result =
+                                       [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsArray:objects];
+                                       [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+                                   }
+                                   else if (error) {
+                                       
+                                       NSDictionary *errorInfo = @{@"errorCode":[NSNumber numberWithInteger:[error code]],
+                                                                   @"errorMessage":[error localizedDescription],
+                                                                   @"errorInfo":[error userInfo]};
+                                       
+                                       CDVPluginResult *result =
+                                       [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
+                                                     messageAsDictionary:errorInfo];
+                                       
+                                       [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+                                   }
+                               }];
+}
+
+
+#pragma mark - Delete methods
+
+- (void)deleteByUsingKeyAndModeCloud:(CDVInvokedUrlCommand*)command {
+    
+    NSString *key = [command.arguments objectAtIndex:0];
+    MASCloudStorageSegment mode =
+        (MASCloudStorageSegment)[[command.arguments objectAtIndex:1] integerValue];
+    
+    [MASCloudStorage deleteObjectUsingKey:key mode:mode
+                               completion:^(BOOL success, NSError * _Nullable error){
+                                   
+                                   if (success) {
+                                       
+                                       CDVPluginResult *result =
+                                            [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:YES];
+                                       [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+                                   }
+                                   else if (error) {
+                                       
+                                       NSDictionary *errorInfo = @{@"errorCode":[NSNumber numberWithInteger:[error code]],
+                                                                   @"errorMessage":[error localizedDescription],
+                                                                   @"errorInfo":[error userInfo]};
+                                       
+                                       CDVPluginResult *result =
+                                            [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
+                                                          messageAsDictionary:errorInfo];
+                                       
+                                       [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+                                   }
+                               }];
+}
+
+
+@end
