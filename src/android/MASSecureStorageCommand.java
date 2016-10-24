@@ -10,6 +10,9 @@ package com.ca.mas.cordova.storage;
 import android.content.Context;
 import android.util.Log;
 
+import com.ca.mas.storage.MASSecureStorage;
+import com.ca.mas.storage.MASStorage;
+
 import com.ca.mas.foundation.MASCallback;
 import com.ca.mas.foundation.MASConstants;
 
