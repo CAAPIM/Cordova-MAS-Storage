@@ -1,4 +1,3 @@
-cordova.define("cordova-plugin-mas-storage.MASStoragePlugin", function(require, exports, module) {
     //
     //  MASStoragePlugin.js
     //
@@ -123,5 +122,3 @@ cordova.define("cordova-plugin-mas-storage.MASStoragePlugin", function(require, 
         }
     };
 module.exports = MASStoragePlugin;
-
-});
