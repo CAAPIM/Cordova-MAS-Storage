@@ -292,6 +292,46 @@ static NSString *const MASStoragePluginMimeTypeJPG = @"image/jpg";
 }
 
 
+#pragma mark - keySet methods
+
+- (void)keySetForModeLocal:(CDVInvokedUrlCommand*)command {
+    
+    MASLocalStorageSegment mode =
+        (MASLocalStorageSegment)[[command.arguments objectAtIndex:0] integerValue];
+    
+    [MASLocalStorage findObjectsUsingMode:mode
+                               completion:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+                                   
+                                   if (objects) {
+                                       
+                                       NSMutableSet *keySet = [NSMutableSet set];
+                                       for (MASObject *object in objects) {
+                                           
+                                           if ([object objectForKey:@"key"])
+                                               [keySet addObject:[object objectForKey:@"key"]];
+                                       }
+                                       
+                                       CDVPluginResult *result =
+                                            [CDVPluginResult resultWithStatus:CDVCommandStatus_OK
+                                                               messageAsArray:[keySet allObjects]];
+                                       [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+                                   }
+                                   else if (error) {
+                                       
+                                       NSDictionary *errorInfo = @{@"errorCode":[NSNumber numberWithInteger:[error code]],
+                                                                   @"errorMessage":[error localizedDescription],
+                                                                   @"errorInfo":[error userInfo]};
+                                       
+                                       CDVPluginResult *result =
+                                       [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
+                                                     messageAsDictionary:errorInfo];
+                                       
+                                       [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+                                   }
+                               }];
+}
+
+
 #pragma mark - CloudStorage
 
 #pragma mark - Save/Update methods
@@ -480,6 +520,46 @@ static NSString *const MASStoragePluginMimeTypeJPG = @"image/jpg";
                                        CDVPluginResult *result =
                                             [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
                                                           messageAsDictionary:errorInfo];
+                                       
+                                       [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+                                   }
+                               }];
+}
+
+
+#pragma mark - keySet methods
+
+- (void)keySetForModeCloud:(CDVInvokedUrlCommand*)command {
+    
+    MASCloudStorageSegment mode =
+        (MASCloudStorageSegment)[[command.arguments objectAtIndex:0] integerValue];
+    
+    [MASCloudStorage findObjectsUsingMode:mode
+                               completion:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+                                   
+                                   if (objects) {
+                                       
+                                       NSMutableSet *keySet = [NSMutableSet set];
+                                       for (MASObject *object in objects) {
+                                           
+                                           if ([object objectForKey:@"key"])
+                                               [keySet addObject:[object objectForKey:@"key"]];
+                                       }
+                                       
+                                       CDVPluginResult *result =
+                                            [CDVPluginResult resultWithStatus:CDVCommandStatus_OK
+                                                               messageAsArray:[keySet allObjects]];
+                                       [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+                                   }
+                                   else if (error) {
+                                       
+                                       NSDictionary *errorInfo = @{@"errorCode":[NSNumber numberWithInteger:[error code]],
+                                                                   @"errorMessage":[error localizedDescription],
+                                                                   @"errorInfo":[error userInfo]};
+                                       
+                                       CDVPluginResult *result =
+                                       [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
+                                                     messageAsDictionary:errorInfo];
                                        
                                        [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
                                    }

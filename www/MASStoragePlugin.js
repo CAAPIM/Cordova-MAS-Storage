@@ -5,9 +5,10 @@
     //
     //  This software may be modified and distributed under the terms
     //  of the MIT license. See the LICENSE file for details.
-    //
-    var MASStoragePlugin =
-    {        
+    //    
+
+module.exports = MASStoragePlugin = {        
+        
         MASLocalStorageSegment:
         {
             /**
@@ -69,10 +70,13 @@
                 return Cordova.exec(successHandler, errorHandler, "MASStoragePlugin", "findByUsingKeyAndModeLocal", [key,mode]);
             };
 
-            this.findAllUsingMode = function(successHandler, errorHandler, mode)
-            {               
-                return Cordova.exec(successHandler, errorHandler, "MASStoragePlugin", "findAllUsingModeLocal", [mode]);
-            };
+            /*
+             * Currently not supported on Android.
+             */
+            // this.findAllUsingMode = function(successHandler, errorHandler, mode)
+            // {               
+            //     return Cordova.exec(successHandler, errorHandler, "MASStoragePlugin", "findAllUsingModeLocal", [mode]);
+            // };
 
             this.deleteByUsingKeyAndMode = function(successHandler, errorHandler, key, mode)
             {               
@@ -105,10 +109,13 @@
                 return Cordova.exec(successHandler, errorHandler, "MASStoragePlugin", "findByUsingKeyAndModeCloud", [key,mode]);
             };
 
-            this.findAllUsingMode = function(successHandler, errorHandler, mode)
-            {               
-                return Cordova.exec(successHandler, errorHandler, "MASStoragePlugin", "findAllUsingModeCloud", [mode]);
-            };
+            /*
+             * Currently not supported on Android
+             */
+            // this.findAllUsingMode = function(successHandler, errorHandler, mode)
+            // {               
+            //     return Cordova.exec(successHandler, errorHandler, "MASStoragePlugin", "findAllUsingModeCloud", [mode]);
+            // };
 
             this.deleteByUsingKeyAndMode = function(successHandler, errorHandler, key, mode)
             {               
@@ -121,4 +128,3 @@
             };
         }
     };
-module.exports = MASStoragePlugin;

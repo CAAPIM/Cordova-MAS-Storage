@@ -41,6 +41,11 @@
 - (void)deleteAllUsingModeLocal:(CDVInvokedUrlCommand*)command;
 
 
+#pragma mark - keySet methods
+
+- (void)keySetForModeLocal:(CDVInvokedUrlCommand*)command;
+
+
 #pragma mark - CloudStorage
 
 #pragma mark - Save/Update methods
@@ -60,6 +65,10 @@
 
 - (void)deleteByUsingKeyAndModeCloud:(CDVInvokedUrlCommand*)command;
 
+
+#pragma mark - keySet methods
+
+- (void)keySetForModeCloud:(CDVInvokedUrlCommand*)command;
 
 
 @end
