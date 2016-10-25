@@ -38,7 +38,7 @@ static NSString *const MASStoragePluginMimeTypeJPG = @"image/jpg";
     
     NSString *mimeType = [command.arguments objectAtIndex:0];
     NSString *key = [command.arguments objectAtIndex:1];
-    MASObject *object = [command.arguments objectAtIndex:2];
+    NSObject *object = [command.arguments objectAtIndex:2];
     MASLocalStorageSegment mode =
     (MASLocalStorageSegment)[[command.arguments objectAtIndex:3] integerValue];
     
@@ -55,8 +55,7 @@ static NSString *const MASStoragePluginMimeTypeJPG = @"image/jpg";
                          else if (error) {
                              
                              NSDictionary *errorInfo = @{@"errorCode":[NSNumber numberWithInteger:[error code]],
-                                                         @"errorMessage":[error localizedDescription],
-                                                         @"errorInfo":[error userInfo]};
+                                                         @"errorMessage":[error localizedDescription]};
                              
                              CDVPluginResult *result =
                                 [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
@@ -90,8 +89,7 @@ static NSString *const MASStoragePluginMimeTypeJPG = @"image/jpg";
                          else if (error) {
                              
                              NSDictionary *errorInfo = @{@"errorCode":[NSNumber numberWithInteger:[error code]],
-                                                         @"errorMessage":[error localizedDescription],
-                                                         @"errorInfo":[error userInfo]};
+                                                         @"errorMessage":[error localizedDescription]};
                              
                              CDVPluginResult *result =
                              [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
@@ -179,8 +177,7 @@ static NSString *const MASStoragePluginMimeTypeJPG = @"image/jpg";
                                  else if (error) {
                                      
                                      NSDictionary *errorInfo = @{@"errorCode":[NSNumber numberWithInteger:[error code]],
-                                                                 @"errorMessage":[error localizedDescription],
-                                                                 @"errorInfo":[error userInfo]};
+                                                                 @"errorMessage":[error localizedDescription]};
                                      
                                      CDVPluginResult *result =
                                      [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
@@ -218,8 +215,7 @@ static NSString *const MASStoragePluginMimeTypeJPG = @"image/jpg";
                                    else if (error) {
                                        
                                        NSDictionary *errorInfo = @{@"errorCode":[NSNumber numberWithInteger:[error code]],
-                                                                   @"errorMessage":[error localizedDescription],
-                                                                   @"errorInfo":[error userInfo]};
+                                                                   @"errorMessage":[error localizedDescription]};
                                        
                                        CDVPluginResult *result =
                                        [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
@@ -252,8 +248,7 @@ static NSString *const MASStoragePluginMimeTypeJPG = @"image/jpg";
                                    else if (error) {
                                        
                                        NSDictionary *errorInfo = @{@"errorCode":[NSNumber numberWithInteger:[error code]],
-                                                                   @"errorMessage":[error localizedDescription],
-                                                                   @"errorInfo":[error userInfo]};
+                                                                   @"errorMessage":[error localizedDescription]};
                                        
                                        CDVPluginResult *result =
                                        [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
@@ -283,8 +278,7 @@ static NSString *const MASStoragePluginMimeTypeJPG = @"image/jpg";
                                         else if (error) {
                                             
                                             NSDictionary *errorInfo = @{@"errorCode":[NSNumber numberWithInteger:[error code]],
-                                                                        @"errorMessage":[error localizedDescription],
-                                                                        @"errorInfo":[error userInfo]};
+                                                                        @"errorMessage":[error localizedDescription]};
                                             
                                             CDVPluginResult *result =
                                             [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
@@ -324,8 +318,7 @@ static NSString *const MASStoragePluginMimeTypeJPG = @"image/jpg";
                                    else if (error) {
                                        
                                        NSDictionary *errorInfo = @{@"errorCode":[NSNumber numberWithInteger:[error code]],
-                                                                   @"errorMessage":[error localizedDescription],
-                                                                   @"errorInfo":[error userInfo]};
+                                                                   @"errorMessage":[error localizedDescription]};
                                        
                                        CDVPluginResult *result =
                                        [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
@@ -361,8 +354,7 @@ static NSString *const MASStoragePluginMimeTypeJPG = @"image/jpg";
                          else if (error) {
                              
                              NSDictionary *errorInfo = @{@"errorCode":[NSNumber numberWithInteger:[error code]],
-                                                         @"errorMessage":[error localizedDescription],
-                                                         @"errorInfo":[error userInfo]};
+                                                         @"errorMessage":[error localizedDescription]};
                              
                              CDVPluginResult *result =
                                 [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
@@ -448,8 +440,7 @@ static NSString *const MASStoragePluginMimeTypeJPG = @"image/jpg";
                                  else if (error) {
                                      
                                      NSDictionary *errorInfo = @{@"errorCode":[NSNumber numberWithInteger:[error code]],
-                                                                 @"errorMessage":[error localizedDescription],
-                                                                 @"errorInfo":[error userInfo]};
+                                                                 @"errorMessage":[error localizedDescription]};
                                      
                                      CDVPluginResult *result =
                                      [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
@@ -486,8 +477,7 @@ static NSString *const MASStoragePluginMimeTypeJPG = @"image/jpg";
                                    else if (error) {
                                        
                                        NSDictionary *errorInfo = @{@"errorCode":[NSNumber numberWithInteger:[error code]],
-                                                                   @"errorMessage":[error localizedDescription],
-                                                                   @"errorInfo":[error userInfo]};
+                                                                   @"errorMessage":[error localizedDescription]};
                                        
                                        CDVPluginResult *result =
                                        [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
@@ -519,8 +509,7 @@ static NSString *const MASStoragePluginMimeTypeJPG = @"image/jpg";
                                    else if (error) {
                                        
                                        NSDictionary *errorInfo = @{@"errorCode":[NSNumber numberWithInteger:[error code]],
-                                                                   @"errorMessage":[error localizedDescription],
-                                                                   @"errorInfo":[error userInfo]};
+                                                                   @"errorMessage":[error localizedDescription]};
                                        
                                        CDVPluginResult *result =
                                             [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
@@ -559,8 +548,7 @@ static NSString *const MASStoragePluginMimeTypeJPG = @"image/jpg";
                                    else if (error) {
                                        
                                        NSDictionary *errorInfo = @{@"errorCode":[NSNumber numberWithInteger:[error code]],
-                                                                   @"errorMessage":[error localizedDescription],
-                                                                   @"errorInfo":[error userInfo]};
+                                                                   @"errorMessage":[error localizedDescription]};
                                        
                                        CDVPluginResult *result =
                                        [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR

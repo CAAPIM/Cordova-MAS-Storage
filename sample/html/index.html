@@ -363,7 +363,7 @@
                 var segment = thisElement.find("select[name='segmentType']").val();
                 var key = thisElement.find("input[name='key']").val();
                                  
-                MASSecureLocalStorage.deleteUsingKeyAndMode(function (result) {
+                MASSecureLocalStorage.deleteByUsingKeyAndMode(function (result) {
                     
                     thisElement.removeClass("succes").removeClass("failure").addClass("success");
                     displayResult(thisElement, result);
@@ -477,7 +477,7 @@
                 var segment = thisElement.find("select[name='segmentType']").val();
                 var key = thisElement.find("input[name='key']").val();
                                  
-                MASSecureCloudStorage.deleteUsingKeyAndMode(function (result) {
+                MASSecureCloudStorage.deleteByUsingKeyAndMode(function (result) {
                     
                     thisElement.removeClass("succes").removeClass("failure").addClass("success");
                     displayResult(thisElement, result);
