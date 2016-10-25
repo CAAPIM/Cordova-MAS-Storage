@@ -60,10 +60,13 @@ module.exports = MASStoragePlugin = {
                 return Cordova.exec(successHandler, errorHandler, "MASStoragePlugin", "saveToLocal", [mime,key,data,mode]);
             };
 
-            this.saveSecurely = function(successHandler, errorHandler, mime, key, data, mode, password)
-            {
-                return Cordova.exec(successHandler, errorHandler, "MASStoragePlugin", "saveSecurelyToLocal", [mime,key,data,mode,password]);
-            };
+            /*
+             * Currently not supported on Android
+             */
+            // this.saveSecurely = function(successHandler, errorHandler, mime, key, data, mode, password)
+            // {
+            //     return Cordova.exec(successHandler, errorHandler, "MASStoragePlugin", "saveSecurelyToLocal", [mime,key,data,mode,password]);
+            // };
 
             this.findByUsingKeyAndMode = function(successHandler, errorHandler, key, mode)
             {               

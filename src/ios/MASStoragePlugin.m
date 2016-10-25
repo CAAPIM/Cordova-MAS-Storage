@@ -77,6 +77,7 @@ static NSString *const MASStoragePluginMimeTypeJPG = @"image/jpg";
         (MASLocalStorageSegment)[[command.arguments objectAtIndex:3] integerValue];
     NSString *password = [command.arguments objectAtIndex:4];
     
+    [MASLocalStorage enableLocalStorage];
     [MASLocalStorage saveObject:object withKey:key type:mimeType mode:mode password:password
                      completion:^(BOOL success, NSError *error){
                          
@@ -204,6 +205,7 @@ static NSString *const MASStoragePluginMimeTypeJPG = @"image/jpg";
     MASLocalStorageSegment mode =
         (MASLocalStorageSegment)[[command.arguments objectAtIndex:0] integerValue];
     
+    [MASLocalStorage enableLocalStorage];
     [MASLocalStorage findObjectsUsingMode:mode
                                completion:^(NSArray * _Nullable objects, NSError * _Nullable error) {
                                    
@@ -237,6 +239,7 @@ static NSString *const MASStoragePluginMimeTypeJPG = @"image/jpg";
     MASLocalStorageSegment mode =
         (MASLocalStorageSegment)[[command.arguments objectAtIndex:1] integerValue];
     
+    [MASLocalStorage enableLocalStorage];
     [MASLocalStorage deleteObjectUsingKey:key mode:mode
                                completion:^(BOOL success, NSError * _Nullable error){
                                    
@@ -267,6 +270,7 @@ static NSString *const MASStoragePluginMimeTypeJPG = @"image/jpg";
     MASLocalStorageSegment mode =
         (MASLocalStorageSegment)[[command.arguments objectAtIndex:0] integerValue];
     
+    [MASLocalStorage enableLocalStorage];
     [MASLocalStorage deleteAllObjectsUsingMode:mode
                                     completion:^(BOOL success, NSError * _Nullable error){
                                         
@@ -299,6 +303,7 @@ static NSString *const MASStoragePluginMimeTypeJPG = @"image/jpg";
     MASLocalStorageSegment mode =
         (MASLocalStorageSegment)[[command.arguments objectAtIndex:0] integerValue];
     
+    [MASLocalStorage enableLocalStorage];
     [MASLocalStorage findObjectsUsingMode:mode
                                completion:^(NSArray * _Nullable objects, NSError * _Nullable error) {
                                    
