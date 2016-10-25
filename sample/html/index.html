@@ -352,6 +352,51 @@
                 }, key, segment);
             });            
 
+            $("#deleteUsingKeyAndModeLocal").bind("click",function(event,ui){
+                if($(event.target).context.tagName != 'A') return;
+                                 
+                $(this).find("textarea.error").hide();
+                                 
+                var thisElement = $(this);
+                var MASSecureLocalStorage = new MASStoragePlugin.MASSecureLocalStorage();
+                                 
+                var segment = thisElement.find("select[name='segmentType']").val();
+                var key = thisElement.find("input[name='key']").val();
+                                 
+                MASSecureLocalStorage.deleteUsingKeyAndMode(function (result) {
+                    
+                    thisElement.removeClass("succes").removeClass("failure").addClass("success");
+                    displayResult(thisElement, result);
+                },
+                function (error) {
+                    
+                    thisElement.removeClass("succes").removeClass("failure").addClass("failure");
+                    displayError(thisElement, error);
+                }, key, segment);
+            });
+
+            $("#deleteAllUsingModeLocal").bind("click",function(event,ui){
+                if($(event.target).context.tagName != 'A') return;
+                                 
+                $(this).find("textarea.error").hide();
+                                 
+                var thisElement = $(this);
+                var MASSecureLocalStorage = new MASStoragePlugin.MASSecureLocalStorage();
+                                 
+                var segment = thisElement.find("select[name='segmentType']").val();
+                                 
+                MASSecureLocalStorage.deleteAllUsingMode(function (result) {
+                    
+                    thisElement.removeClass("succes").removeClass("failure").addClass("success");
+                    displayResult(thisElement, result);
+                },
+                function (error) {
+                    
+                    thisElement.removeClass("succes").removeClass("failure").addClass("failure");
+                    displayError(thisElement, error);
+                }, segment);
+            }); 
+
             $("#keySetLocal").bind("click",function(event,ui){
                 if($(event.target).context.tagName != 'A') return;
                                  
@@ -362,7 +407,7 @@
                                  
                 var segment = thisElement.find("select[name='segmentType']").val();
                                  
-                MASSecureLocalStorage.keySetLocal(function (result) {
+                MASSecureLocalStorage.keySetForMode(function (result) {
                     
                     thisElement.removeClass("succes").removeClass("failure").addClass("success");
                     displayResult(thisElement, result);
@@ -372,7 +417,7 @@
                     thisElement.removeClass("succes").removeClass("failure").addClass("failure");
                     displayError(thisElement, error);
                 }, segment);
-            });
+            });            
                           
             $("#saveCloud").bind("click",function(event,ui){
                 if($(event.target).context.tagName != 'A') return;
@@ -419,6 +464,51 @@
                     thisElement.removeClass("succes").removeClass("failure").addClass("failure");
                     displayError(thisElement, error);
                 }, key, segment);
+            });
+
+            $("#deleteUsingKeyAndModeCloud").bind("click",function(event,ui){
+                if($(event.target).context.tagName != 'A') return;
+                                 
+                $(this).find("textarea.error").hide();
+                                 
+                var thisElement = $(this);
+                var MASSecureCloudStorage = new MASStoragePlugin.MASSecureCloudStorage();
+                                 
+                var segment = thisElement.find("select[name='segmentType']").val();
+                var key = thisElement.find("input[name='key']").val();
+                                 
+                MASSecureCloudStorage.deleteUsingKeyAndMode(function (result) {
+                    
+                    thisElement.removeClass("succes").removeClass("failure").addClass("success");
+                    displayResult(thisElement, result);
+                },
+                function (error) {
+                    
+                    thisElement.removeClass("succes").removeClass("failure").addClass("failure");
+                    displayError(thisElement, error);
+                }, key, segment);
+            });
+
+            $("#keySetCloud").bind("click",function(event,ui){
+                if($(event.target).context.tagName != 'A') return;
+                                 
+                $(this).find("textarea.error").hide();
+                                 
+                var thisElement = $(this);
+                var MASSecureCloudStorage = new MASStoragePlugin.MASSecureCloudStorage();
+                                 
+                var segment = thisElement.find("select[name='segmentType']").val();
+                                 
+                MASSecureCloudStorage.keySetForMode(function (result) {
+                    
+                    thisElement.removeClass("succes").removeClass("failure").addClass("success");
+                    displayResult(thisElement, result);
+                },
+                function (error) {
+                    
+                    thisElement.removeClass("succes").removeClass("failure").addClass("failure");
+                    displayError(thisElement, error);
+                }, segment);
             });
 
             function parseRequestResponseType(type)
@@ -608,6 +698,27 @@
                         </a>
                     </li>
                     <li data-icon="false">
+                        <a href="#" id="deleteUsingKeyAndModeLocal">Delete Locally
+                            <label for="localSegment">MASStorage Local Segment:</label>
+                            <select name="segmentType" >
+                                <option value="0">Application</option>
+                                <option value="1">ApplicationForUser</option>
+                            </select>
+                            <input type="text" name="key" placeholder="KEY"/>
+                            <textarea class='error' style="display:none;" readonly=""></textarea>
+                        </a>
+                    </li>
+                    <li data-icon="false">
+                        <a href="#" id="deleteAllUsingModeLocal">Delete All Locally
+                            <label for="localSegment">MASStorage Local Segment:</label>
+                            <select name="segmentType" >
+                                <option value="0">Application</option>
+                                <option value="1">ApplicationForUser</option>
+                            </select>
+                            <textarea class='error' style="display:none;" readonly=""></textarea>
+                        </a>
+                    </li>
+                    <li data-icon="false">
                         <a href="#" id="keySetLocal">LocalStorage Key Set
                             <label for="localSegment">MASStorage Local Segment:</label>
                             <select name="segmentType" >
@@ -652,6 +763,29 @@
                                 <option value="2">ApplicationForUser</option>
                             </select>
                             <input type="text" name="key" placeholder="KEY"/>
+                            <textarea class='error' style="display:none;" readonly=""></textarea>
+                        </a>
+                    </li>
+                    <li data-icon="false">
+                        <a href="#" id="deleteUsingKeyAndModeCloud">Delete On Cloud
+                            <label for="cloudSegment">MASStorage Cloud Segment:</label>
+                            <select name="segmentType" >
+                                <option value="0">User</option>
+                                <option value="1">Application</option>
+                                <option value="2">ApplicationForUser</option>
+                            </select>
+                            <input type="text" name="key" placeholder="KEY"/>
+                            <textarea class='error' style="display:none;" readonly=""></textarea>
+                        </a>
+                    </li>                    
+                    <li data-icon="false">
+                        <a href="#" id="keySetCloud">CloudStorage Key Set
+                            <label for="cloudSegment">MASStorage Cloud Segment:</label>
+                            <select name="segmentType" >
+                                <option value="0">User</option>
+                                <option value="1">Application</option>
+                                <option value="2">ApplicationForUser</option>
+                            </select>                            
                             <textarea class='error' style="display:none;" readonly=""></textarea>
                         </a>
                     </li>
