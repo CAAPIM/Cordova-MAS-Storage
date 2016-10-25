@@ -343,6 +343,9 @@
                 MASSecureLocalStorage.findByUsingKeyAndMode(function (result) {
                     
                     thisElement.removeClass("succes").removeClass("failure").addClass("success");
+                    
+                    var value = atob(result.value);
+                    result.value = value;
                     displayResult(thisElement, result);
                 },
                 function (error) {
@@ -457,6 +460,9 @@
                 MASSecureCloudStorage.findByUsingKeyAndMode(function (result) {
                                                                                            
                     thisElement.removeClass("succes").removeClass("failure").addClass("success");
+
+                    var value = atob(result.value);
+                    result.value = value;
                     displayResult(thisElement, result);
                 },
                 function (error) {

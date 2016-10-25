@@ -116,6 +116,7 @@ static NSString *const MASStoragePluginMimeTypeJPG = @"image/jpg";
                                  
                                  if (object) {
                                      
+                                     NSString *base64Value = nil;
                                      NSString *mimeType = [object objectForKey:@"type"];
                                      
                                      if ([mimeType isEqualToString:MASStoragePluginMimeTypeText] ||
@@ -140,9 +141,14 @@ static NSString *const MASStoragePluginMimeTypeJPG = @"image/jpg";
                                              value = [[NSString alloc] initWithData:[object objectForKey:@"value"] encoding:NSUTF8StringEncoding];
                                          }
                                          
+                                         NSData *plainData = [value dataUsingEncoding:NSUTF8StringEncoding];
+                                         base64Value = [plainData base64EncodedStringWithOptions:kNilOptions];
+                                         NSDictionary *resultDictionary =
+                                         [NSDictionary dictionaryWithObjectsAndKeys:mimeType, @"mime", base64Value, @"value", nil];
+                                         
                                          CDVPluginResult *result =
                                          [CDVPluginResult resultWithStatus:CDVCommandStatus_OK
-                                                           messageAsString:value];
+                                                       messageAsDictionary:resultDictionary];
                                          
                                          [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
                                      }
@@ -158,7 +164,7 @@ static NSString *const MASStoragePluginMimeTypeJPG = @"image/jpg";
                                              // Check if there is metadata inside the payload. If so, change the way of loading the image
                                              //
                                              NSString *base64String =
-                                                [[NSString alloc] initWithData:imageData encoding:NSUTF8StringEncoding];
+                                             [[NSString alloc] initWithData:imageData encoding:NSUTF8StringEncoding];
                                              
                                              if (base64String) {
                                                  
@@ -166,9 +172,13 @@ static NSString *const MASStoragePluginMimeTypeJPG = @"image/jpg";
                                                  imageData = [NSData dataWithContentsOfURL:imageUrl];
                                              }
                                              
+                                             base64Value = [imageData base64EncodedStringWithOptions:kNilOptions];
+                                             NSDictionary *resultDictionary =
+                                             [NSDictionary dictionaryWithObjectsAndKeys:mimeType, @"mime", base64Value, @"value", nil];
+                                             
                                              CDVPluginResult *result =
                                              [CDVPluginResult resultWithStatus:CDVCommandStatus_OK
-                                                          messageAsArrayBuffer:imageData];
+                                                           messageAsDictionary:resultDictionary];
                                              
                                              [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
                                          }
@@ -189,7 +199,7 @@ static NSString *const MASStoragePluginMimeTypeJPG = @"image/jpg";
                                      
                                      CDVPluginResult *result =
                                      [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
-                                                   messageAsBool:NO];
+                                                         messageAsBool:NO];
                                      
                                      [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
                                  }
@@ -379,6 +389,7 @@ static NSString *const MASStoragePluginMimeTypeJPG = @"image/jpg";
                                  
                                  if (object) {
                                      
+                                     NSString *base64Value = nil;
                                      NSString *mimeType = [object objectForKey:@"type"];
                                      
                                      if ([mimeType isEqualToString:MASStoragePluginMimeTypeText] ||
@@ -403,9 +414,14 @@ static NSString *const MASStoragePluginMimeTypeJPG = @"image/jpg";
                                              value = [[NSString alloc] initWithData:[object objectForKey:@"value"] encoding:NSUTF8StringEncoding];
                                          }
                                          
+                                         NSData *plainData = [value dataUsingEncoding:NSUTF8StringEncoding];
+                                         base64Value = [plainData base64EncodedStringWithOptions:kNilOptions];
+                                         NSDictionary *resultDictionary =
+                                         [NSDictionary dictionaryWithObjectsAndKeys:mimeType, @"mime", base64Value, @"value", nil];
+                                         
                                          CDVPluginResult *result =
                                          [CDVPluginResult resultWithStatus:CDVCommandStatus_OK
-                                                           messageAsString:value];
+                                                       messageAsDictionary:resultDictionary];
                                          
                                          [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
                                      }
@@ -429,9 +445,13 @@ static NSString *const MASStoragePluginMimeTypeJPG = @"image/jpg";
                                                  imageData = [NSData dataWithContentsOfURL:imageUrl];
                                              }
                                              
+                                             base64Value = [imageData base64EncodedStringWithOptions:kNilOptions];
+                                             NSDictionary *resultDictionary =
+                                             [NSDictionary dictionaryWithObjectsAndKeys:mimeType, @"mime", base64Value, @"value", nil];
+                                             
                                              CDVPluginResult *result =
                                              [CDVPluginResult resultWithStatus:CDVCommandStatus_OK
-                                                          messageAsArrayBuffer:imageData];
+                                                           messageAsDictionary:resultDictionary];
                                              
                                              [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
                                          }
