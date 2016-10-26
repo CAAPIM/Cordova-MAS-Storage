@@ -3,14 +3,14 @@ package com.ca.mas.cordova.storage;
 import android.content.Context;
 import android.util.Log;
 
+import com.ca.mas.foundation.MASCallback;
+import com.ca.mas.foundation.MASConstants;
 import com.ca.mas.storage.MASSecureLocalStorage;
 import com.ca.mas.storage.MASStorage;
 
-import com.ca.mas.foundation.MASCallback;
-import com.ca.mas.foundation.MASConstants;
-
 import org.apache.cordova.CallbackContext;
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.Set;
 
@@ -22,10 +22,6 @@ public class MASSecureLocalStorageCommand {
     private static final String TAG = MASSecureLocalStorageCommand.class.getCanonicalName();
 
     public static class SaveCommand extends Command {
-
-        public int resolveSegment(int input) {
-            return input == 1 ? MASConstants.MAS_USER : (input == 2 ? MASConstants.MAS_APPLICATION : MASConstants.MAS_USER | MASConstants.MAS_APPLICATION);
-        }
 
         @Override
         public void execute(Context context, JSONArray args, final CallbackContext callbackContext) {
@@ -73,7 +69,17 @@ public class MASSecureLocalStorageCommand {
 
                     @Override
                     public void onSuccess(Object result) {
-                        success(callbackContext, result);
+                        /*if (result == null) {
+                            callbackContext.error(getErrorJson(MAGErrorCode.UNKNOWN, "Failed to GET object from local storage. Error #: unknown error", null));
+                            return;
+                        }*/
+                        JSONObject response = null;
+                        try {
+                            response = getResultJson(result);
+                            success(callbackContext, response);
+                        } catch (Exception ex) {
+                            onError(ex);
+                        }
                     }
 
                     @Override
@@ -100,6 +106,10 @@ public class MASSecureLocalStorageCommand {
             try {
                 MASStorage storage = new MASSecureLocalStorage();
                 String key = args.optString(0);
+                /*if(key == null || key.isEmpty()){
+                    callbackContext.error(getErrorJson(MAGErrorCode.UNKNOWN,"Method Not allowed",""));
+                    return;
+                }*/
                 int segment_0 = args.optInt(2);
                 int segment = segment_0 == 1 ? MASConstants.MAS_USER : (segment_0 == 2 ? MASConstants.MAS_APPLICATION : MASConstants.MAS_USER | MASConstants.MAS_APPLICATION);
                 MASCallback<Void> callback = new MASCallback<Void>() {
@@ -124,6 +134,39 @@ public class MASSecureLocalStorageCommand {
         @Override
         public String getAction() {
             return "deleteByUsingKeyAndModeLocal";
+        }
+    }
+
+    public static class DeleteAllCommand extends Command {
+        @Override
+        public void execute(Context context, JSONArray args, final CallbackContext callbackContext) {
+            try {
+                MASSecureLocalStorage storage = new MASSecureLocalStorage();
+                String key = args.optString(0);
+                int segment_0 = args.optInt(2);
+                int segment = segment_0 == 1 ? MASConstants.MAS_USER : (segment_0 == 2 ? MASConstants.MAS_APPLICATION : MASConstants.MAS_USER | MASConstants.MAS_APPLICATION);
+                MASCallback<Void> callback = new MASCallback<Void>() {
+
+                    @Override
+                    public void onSuccess(Void result) {
+                        success(callbackContext, true);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        callbackContext.error(getError(e));
+                    }
+                };
+                storage.deleteAll(segment, callback);
+            } catch (Exception e) {
+                Log.e(TAG, e.getMessage(), e);
+                callbackContext.error(getError(e));
+            }
+        }
+
+        @Override
+        public String getAction() {
+            return "deleteAllUsingModeLocal";
         }
     }
 

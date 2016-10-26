@@ -33,6 +33,7 @@ public class MASStoragePlugin extends CordovaPlugin {
         add(new MASSecureLocalStorageCommand.FindByKeyCommand());
         add(new MASSecureLocalStorageCommand.DeleteCommand());
         add(new MASSecureLocalStorageCommand.KeySetCommand());
+        add(new MASSecureLocalStorageCommand.DeleteAllCommand());
 
         // Commands for Cloud Store and Fetch
         add(new MASSecureStorageCommand.SaveCommand());

@@ -8,6 +8,7 @@
 package com.ca.mas.cordova.storage;
 
 import android.content.Context;
+import android.util.Base64;
 
 import com.ca.mas.core.client.ServerClient;
 import com.ca.mas.core.error.MAGErrorCode;
@@ -15,6 +16,7 @@ import com.ca.mas.core.error.MAGException;
 import com.ca.mas.core.error.MAGRuntimeException;
 import com.ca.mas.core.error.MAGServerException;
 import com.ca.mas.core.error.TargetApiException;
+import com.ca.mas.storage.DataMarshaller;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.PluginResult;
@@ -22,7 +24,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
@@ -31,7 +32,6 @@ import java.io.StringWriter;
  * {@link Command} implementations should be designed thread-safe.
  */
 public abstract class Command {
-
     /**
      * Execute a unit of processing work to be performed.
      *
@@ -83,7 +83,7 @@ public abstract class Command {
             TargetApiException e = ((TargetApiException) throwable.getCause());
             try {
                 errorCode = ServerClient.findErrorCode(e.getResponse());
-            } catch (IOException ignore) {
+            } catch (Exception ignore) {
             }
         }
 
@@ -104,10 +104,54 @@ public abstract class Command {
         callbackContext.sendPluginResult(result);
     }
 
+    protected void success(CallbackContext callbackContext, JSONObject resultData) {
+        PluginResult result = new PluginResult(PluginResult.Status.OK, resultData);
+        callbackContext.sendPluginResult(result);
+    }
+
     protected void success(CallbackContext callbackContext, Object resultData) {
         PluginResult result = new PluginResult(PluginResult.Status.OK, resultData.toString());
         callbackContext.sendPluginResult(result);
     }
 
+    protected JSONObject getErrorJson(int errorCode, String errorMessage, String errorInfo) {
+        JSONObject error = new JSONObject();
+        try {
+            error.put("errorCode", errorCode);
+            error.put("errorMessage", errorMessage);
+            error.put("errorInfo", errorInfo != null ? errorInfo : "");
+        } catch (JSONException ignore) {
+        }
+        return error;
+    }
 
+    protected JSONObject getResultJson(Object result) throws Exception {
+        JSONObject response = new JSONObject();
+        if (result == null) {
+            response.put("mime", "text/plain");
+            response.put("value", "");
+            return response;
+        }
+        DataMarshaller marshaller = StorageDataMarshaller.findMarshaller(result);
+        String mime = marshaller.getTypeAsString();
+
+        byte[] bytes = null;
+        try {
+            response.put("mime", mime);
+            bytes = marshaller.marshall(result);
+            String b64 = new String(Base64.encode(bytes, 0), "UTF-8");
+            StringBuilder base64String = new StringBuilder();
+            base64String.append(b64);
+            if (base64String.lastIndexOf(System.getProperty("line.separator")) != -1) {
+                base64String.deleteCharAt(base64String.lastIndexOf(System.getProperty("line.separator")));
+            }
+            if (base64String.lastIndexOf("\r") != -1) {
+                base64String.deleteCharAt(base64String.lastIndexOf("\r"));
+            }
+            response.put("value", base64String.toString());
+            return response;
+        } catch (Exception ex) {
+            throw ex;
+        }
+    }
 }

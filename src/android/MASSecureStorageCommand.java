@@ -10,14 +10,14 @@ package com.ca.mas.cordova.storage;
 import android.content.Context;
 import android.util.Log;
 
+import com.ca.mas.foundation.MASCallback;
+import com.ca.mas.foundation.MASConstants;
 import com.ca.mas.storage.MASSecureStorage;
 import com.ca.mas.storage.MASStorage;
 
-import com.ca.mas.foundation.MASCallback;
-import com.ca.mas.foundation.MASConstants;
-
 import org.apache.cordova.CallbackContext;
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.Set;
 
@@ -48,6 +48,7 @@ public class MASSecureStorageCommand {
 
                     @Override
                     public void onError(Throwable e) {
+                        e.printStackTrace();
                         callbackContext.error(getError(e));
                     }
                 };
@@ -76,7 +77,17 @@ public class MASSecureStorageCommand {
 
                     @Override
                     public void onSuccess(Object result) {
-                        success(callbackContext, result);
+                        /*if (result == null) {
+                            callbackContext.error(getErrorJson(MAGErrorCode.UNKNOWN, "Failed to GET object from cloud storage. Error #: unknown error", null));
+                            return;
+                        }*/
+                        JSONObject response = null;
+                        try {
+                            response = getResultJson(result);
+                            success(callbackContext, response);
+                        } catch (Exception ex) {
+                            onError(ex);
+                        }
                     }
 
                     @Override
