@@ -6,10 +6,9 @@
     //  This software may be modified and distributed under the terms
     //  of the MIT license. See the LICENSE file for details.
     //    
-
-module.exports = MASStoragePlugin = {        
-        
-        MASLocalStorageSegment:
+var MASStoragePlugin;
+module.exports = MASStoragePlugin = {
+    MASLocalStorageSegment:
         {
             /**
              *  Unknown Mode
@@ -27,7 +26,7 @@ module.exports = MASStoragePlugin = {
             MASLocalStorageSegmentApplicationForUser: 1
         },
 
-        MASCloudStorageSegment:
+    MASCloudStorageSegment:
         {
             /**
              *  Unknown Mode
@@ -53,12 +52,11 @@ module.exports = MASStoragePlugin = {
         /**
          MASSecureLocalStorage which has the interfaces mapped to the native MASStorage class. These functions would store and fetch data from local device store.
          */
-        MASSecureLocalStorage: function()
-        {
-             this.save = function(successHandler, errorHandler, mime, key, data, mode)
-            {
-                return Cordova.exec(successHandler, errorHandler, "MASStoragePlugin", "saveToLocal", [mime,key,data,mode]);
-            };
+    MASSecureLocalStorage: function () {
+		'use strict';
+        this.save = function (successHandler, errorHandler, mime, key, data, mode) {
+            return Cordova.exec(successHandler, errorHandler, "MASStoragePlugin", "saveToLocal", [mime, key, data, mode]);
+        };
 
             /*
              * Currently not supported on Android
@@ -68,10 +66,9 @@ module.exports = MASStoragePlugin = {
             //     return Cordova.exec(successHandler, errorHandler, "MASStoragePlugin", "saveSecurelyToLocal", [mime,key,data,mode,password]);
             // };
 
-            this.findByUsingKeyAndMode = function(successHandler, errorHandler, key, mode)
-            {               
-                return Cordova.exec(successHandler, errorHandler, "MASStoragePlugin", "findByUsingKeyAndModeLocal", [key,mode]);
-            };
+        this.findByUsingKeyAndMode = function (successHandler, errorHandler, key, mode) {
+            return Cordova.exec(successHandler, errorHandler, "MASStoragePlugin", "findByUsingKeyAndModeLocal", [key, mode]);
+        };
 
             /*
              * Currently not supported on Android.
@@ -81,36 +78,31 @@ module.exports = MASStoragePlugin = {
             //     return Cordova.exec(successHandler, errorHandler, "MASStoragePlugin", "findAllUsingModeLocal", [mode]);
             // };
 
-            this.deleteByUsingKeyAndMode = function(successHandler, errorHandler, key, mode)
-            {               
-                return Cordova.exec(successHandler, errorHandler, "MASStoragePlugin", "deleteByUsingKeyAndModeLocal", [key,mode]);
-            };
+        this.deleteByUsingKeyAndMode = function (successHandler, errorHandler, key, mode) {
+            return Cordova.exec(successHandler, errorHandler, "MASStoragePlugin", "deleteByUsingKeyAndModeLocal", [key, mode]);
+        };
 
-            this.deleteAllUsingMode = function(successHandler, errorHandler, mode)
-            {               
-                return Cordova.exec(successHandler, errorHandler, "MASStoragePlugin", "deleteAllUsingModeLocal", [mode]);
-            };
+        this.deleteAllUsingMode = function (successHandler, errorHandler, mode) {
+            return Cordova.exec(successHandler, errorHandler, "MASStoragePlugin", "deleteAllUsingModeLocal", [mode]);
+        };
 
-            this.keySetForMode = function(successHandler, errorHandler, mode)
-            {               
-                return Cordova.exec(successHandler, errorHandler, "MASStoragePlugin", "keySetForModeLocal", [mode]);
-            };
-        },
+        this.keySetForMode = function (successHandler, errorHandler, mode) {
+			return Cordova.exec(successHandler, errorHandler, "MASStoragePlugin", "keySetForModeLocal", [mode]);
+        };
+    },
 
         /**
          MASSecureCloudStorage which has the interfaces mapped to the native MASStorage class. These functions would store and fetch data from cloud storage.
          */
-        MASSecureCloudStorage: function()
-        {
-            this.save = function(successHandler, errorHandler, mime, key, data, mode)
-            {
-                return Cordova.exec(successHandler, errorHandler, "MASStoragePlugin", "saveToCloud", [mime,key,data,mode]);
-            };
+    MASSecureCloudStorage: function () {
+		'use strict';
+        this.save = function (successHandler, errorHandler, mime, key, data, mode) {
+            return Cordova.exec(successHandler, errorHandler, "MASStoragePlugin", "saveToCloud", [mime, key, data, mode]);
+        };
 
-            this.findByUsingKeyAndMode = function(successHandler, errorHandler, key, mode)
-            {
-                return Cordova.exec(successHandler, errorHandler, "MASStoragePlugin", "findByUsingKeyAndModeCloud", [key,mode]);
-            };
+        this.findByUsingKeyAndMode = function (successHandler, errorHandler, key, mode) {
+            return Cordova.exec(successHandler, errorHandler, "MASStoragePlugin", "findByUsingKeyAndModeCloud", [key, mode]);
+        };
 
             /*
              * Currently not supported on Android
@@ -120,14 +112,12 @@ module.exports = MASStoragePlugin = {
             //     return Cordova.exec(successHandler, errorHandler, "MASStoragePlugin", "findAllUsingModeCloud", [mode]);
             // };
 
-            this.deleteByUsingKeyAndMode = function(successHandler, errorHandler, key, mode)
-            {               
-                return Cordova.exec(successHandler, errorHandler, "MASStoragePlugin", "deleteByUsingKeyAndModeCloud", [key,mode]);
-            };
+        this.deleteByUsingKeyAndMode = function (successHandler, errorHandler, key, mode) {
+            return Cordova.exec(successHandler, errorHandler, "MASStoragePlugin", "deleteByUsingKeyAndModeCloud", [key, mode]);
+        };
 
-            this.keySetForMode = function(successHandler, errorHandler, mode)
-            {
-                return Cordova.exec(successHandler, errorHandler, "MASStoragePlugin", "keySetForModeCloud", [mode]);
-            };
-        }
-    };
+        this.keySetForMode = function (successHandler, errorHandler, mode) {
+            return Cordova.exec(successHandler, errorHandler, "MASStoragePlugin", "keySetForModeCloud", [mode]);
+        };
+	}
+};
