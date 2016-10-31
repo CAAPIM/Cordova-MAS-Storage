@@ -30,7 +30,7 @@ public class MASSecureLocalStorageCommand {
                 MASStorage storage = new MASSecureLocalStorage();
                 String key = args.optString(1);
                 Object data = args.opt(2);
-                int segment_0 = args.optInt(3);
+                int segment_0 = args.getInt(3);
                 //int segment = segment_0 == 1 ? MASConstants.MAS_USER : (segment_0 == 2 ? MASConstants.MAS_APPLICATION : MASConstants.MAS_USER | MASConstants.MAS_APPLICATION);
                 int segment=fetchSegment(segment_0);
                 MASCallback<Void> callback = new MASCallback<Void>() {
@@ -64,7 +64,7 @@ public class MASSecureLocalStorageCommand {
             try {
                 MASStorage storage = new MASSecureLocalStorage();
                 String key = args.optString(0);
-                int segment_0 = args.optInt(2);
+                int segment_0 = args.getInt(1);
                 //int segment = segment_0 == 1 ? MASConstants.MAS_USER : (segment_0 == 2 ? MASConstants.MAS_APPLICATION : MASConstants.MAS_USER | MASConstants.MAS_APPLICATION);
                 int segment=fetchSegment(segment_0);
                 MASCallback callback = new MASCallback() {
@@ -112,7 +112,7 @@ public class MASSecureLocalStorageCommand {
                     callbackContext.error(getErrorJson(MAGErrorCode.UNKNOWN,"Method Not allowed",""));
                     return;
                 }*/
-                int segment_0 = args.optInt(2);
+                int segment_0 = args.getInt(1);
                 //int segment = segment_0 == 1 ? MASConstants.MAS_USER : (segment_0 == 2 ? MASConstants.MAS_APPLICATION : MASConstants.MAS_USER | MASConstants.MAS_APPLICATION);
                 int segment=fetchSegment(segment_0);
                 MASCallback<Void> callback = new MASCallback<Void>() {
@@ -145,8 +145,7 @@ public class MASSecureLocalStorageCommand {
         public void execute(Context context, JSONArray args, final CallbackContext callbackContext) {
             try {
                 MASSecureLocalStorage storage = new MASSecureLocalStorage();
-                String key = args.optString(0);
-                int segment_0 = args.optInt(2);
+                int segment_0 = args.getInt(0);
                 //int segment = segment_0 == 1 ? MASConstants.MAS_USER : (segment_0 == 2 ? MASConstants.MAS_APPLICATION : MASConstants.MAS_USER | MASConstants.MAS_APPLICATION);
                 int segment=fetchSegment(segment_0);
                 MASCallback<Void> callback = new MASCallback<Void>() {
@@ -179,7 +178,7 @@ public class MASSecureLocalStorageCommand {
         public void execute(Context context, JSONArray args, final CallbackContext callbackContext) {
             try {
                 MASStorage storage = new MASSecureLocalStorage();
-                int segment_0 = args.optInt(2);
+                int segment_0 = args.getInt(0);
                 //int segment = segment_0 == 1 ? MASConstants.MAS_USER : (segment_0 == 2 ? MASConstants.MAS_APPLICATION : MASConstants.MAS_USER | MASConstants.MAS_APPLICATION);
                 int segment=fetchSegment(segment_0);
                 MASCallback<Set<String>> callback = new MASCallback<Set<String>>() {
