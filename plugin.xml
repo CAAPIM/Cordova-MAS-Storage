@@ -44,6 +44,7 @@ xmlns:android="http://schemas.android.com/apk/res/android"
         <source-file src="src/android/MASSecureLocalStorageCommand.java" target-dir="src/com/ca/mas/cordova/storage" />
         <source-file src="src/android/MASStoragePlugin.java" target-dir="src/com/ca/mas/cordova/storage" />
         <source-file src="src/android/StorageDataMarshaller.java" target-dir="src/com/ca/mas/cordova/storage" />
+        <source-file src="src/android/MASCordovaConstants.java" target-dir="src/com/ca/mas/cordova/storage" />
 
     </platform>
 </plugin>

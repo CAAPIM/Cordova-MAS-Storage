@@ -14,6 +14,7 @@ import com.ca.mas.foundation.MASCallback;
 import com.ca.mas.foundation.MASConstants;
 import com.ca.mas.storage.MASSecureStorage;
 import com.ca.mas.storage.MASStorage;
+import com.ca.mas.storage.MASStorageSegment;
 
 import org.apache.cordova.CallbackContext;
 import org.json.JSONArray;
@@ -36,9 +37,9 @@ public class MASSecureStorageCommand {
                 MASStorage storage = new MASSecureStorage();
                 String key = args.optString(1);
                 Object data = args.opt(2);
-                int segment_0 = args.optInt(3);
-                int segment = segment_0 == 1 ? MASConstants.MAS_USER : (segment_0 == 2 ? MASConstants.MAS_APPLICATION : MASConstants.MAS_USER | MASConstants.MAS_APPLICATION);
-
+                int segment_0 = args.getInt(3);
+              //  int segment = segment_0 == 1 ? MASConstants.MAS_USER : (segment_0 == 2 ? MASConstants.MAS_APPLICATION : MASConstants.MAS_USER | MASConstants.MAS_APPLICATION);
+                int segment=fetchSegmentEnum(segment_0);
                 MASCallback<Void> callback = new MASCallback<Void>() {
 
                     @Override
@@ -71,8 +72,9 @@ public class MASSecureStorageCommand {
             try {
                 MASStorage storage = new MASSecureStorage();
                 String key = args.optString(0);
-                int segment_0 = args.optInt(2);
-                int segment = segment_0 == 1 ? MASConstants.MAS_USER : (segment_0 == 2 ? MASConstants.MAS_APPLICATION : MASConstants.MAS_USER | MASConstants.MAS_APPLICATION);
+                int segment_0 = args.getInt(1);
+                //int segment = segment_0 == 1 ? MASConstants.MAS_USER : (segment_0 == 2 ? MASConstants.MAS_APPLICATION : MASConstants.MAS_USER | MASConstants.MAS_APPLICATION);
+                int segment=fetchSegmentEnum(segment_0);
                 MASCallback callback = new MASCallback() {
 
                     @Override
@@ -114,8 +116,9 @@ public class MASSecureStorageCommand {
             try {
                 MASStorage storage = new MASSecureStorage();
                 String key = args.optString(0);
-                int segment_0 = args.optInt(2);
-                int segment = segment_0 == 1 ? MASConstants.MAS_USER : (segment_0 == 2 ? MASConstants.MAS_APPLICATION : MASConstants.MAS_USER | MASConstants.MAS_APPLICATION);
+                int segment_0 = args.getInt(1);
+               // int segment = segment_0 == 1 ? MASConstants.MAS_USER : (segment_0 == 2 ? MASConstants.MAS_APPLICATION : MASConstants.MAS_USER | MASConstants.MAS_APPLICATION);
+                int segment=fetchSegmentEnum(segment_0);
                 MASCallback<Void> callback = new MASCallback<Void>() {
 
                     @Override
@@ -146,8 +149,9 @@ public class MASSecureStorageCommand {
         public void execute(Context context, JSONArray args, final CallbackContext callbackContext) {
             try {
                 MASStorage storage = new MASSecureStorage();
-                int segment_0 = args.optInt(2);
-                int segment = segment_0 == 1 ? MASConstants.MAS_USER : (segment_0 == 2 ? MASConstants.MAS_APPLICATION : MASConstants.MAS_USER | MASConstants.MAS_APPLICATION);
+                int segment_0 = args.getInt(0);
+               // int segment = segment_0 == 1 ? MASConstants.MAS_USER : (segment_0 == 2 ? MASConstants.MAS_APPLICATION : MASConstants.MAS_USER | MASConstants.MAS_APPLICATION);
+                int segment=fetchSegmentEnum(segment_0);
                 MASCallback<Set<String>> callback = new MASCallback<Set<String>>() {
 
                     @Override
@@ -171,5 +175,23 @@ public class MASSecureStorageCommand {
         public String getAction() {
             return "keySetForModeCloud";
         }
+    }
+    private static @MASStorageSegment int fetchSegmentEnum(int segment){
+        int resultSegment;
+        switch(segment){
+            case MASCordovaConstants.CORDOVA_MAS_CLOUD_STORAGE_SEGMENT_USER:
+                resultSegment=MASConstants.MAS_USER;
+                break;
+            case MASCordovaConstants.CORDOVA_MAS_CLOUD_STORAGE_SEGMENT_APPLICATION:
+                resultSegment=MASConstants.MAS_APPLICATION;
+                break;
+            case MASCordovaConstants.CORDOVA_MAS_CLOUD_STORAGE_SEGMENT_APPLICATION_FOR_USER:
+                resultSegment=MASConstants.MAS_USER | MASConstants.MAS_APPLICATION;
+                break;
+            default:
+                throw new UnsupportedOperationException("This segment is not mapped to any of the present segments");
+        }
+        return resultSegment;
+
     }
 }

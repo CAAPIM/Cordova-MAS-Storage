@@ -57,7 +57,7 @@ public abstract class Command {
     protected JSONObject getError(Throwable throwable) {
         int errorCode = MAGErrorCode.UNKNOWN;
         String errorMessage = throwable.getMessage();
-
+        String errorMessageDetail = "";
         //Try to capture the root cause of the error
         if (throwable instanceof MAGException) {
             MAGException ex = (MAGException) throwable;
@@ -85,6 +85,8 @@ public abstract class Command {
                 errorCode = ServerClient.findErrorCode(e.getResponse());
             } catch (Exception ignore) {
             }
+        } else {
+            errorMessageDetail = throwable.getMessage();
         }
 
         JSONObject error = new JSONObject();
@@ -94,6 +96,10 @@ public abstract class Command {
             StringWriter errors = new StringWriter();
             throwable.printStackTrace(new PrintWriter(errors));
             error.put("errorInfo", errors.toString());
+            if (!"".equals(errorMessageDetail)) {
+                error.put("errorMessageDetail", errorMessageDetail);
+                error.put("errorMessage", "Internal Server Error");
+            }
         } catch (JSONException ignore) {
         }
         return error;
