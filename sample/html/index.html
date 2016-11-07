@@ -701,6 +701,20 @@
         }
 
     </script>
+    <script>
+        
+        function clearInputText(sel) {
+            
+            if(sel.id === "saveLocalMime") {
+                document.getElementById("saveLocalKey").value = "";
+                document.getElementById("saveLocalVal").value = "";
+            }
+            else if(sel.id === "saveCloudMime") {
+                document.getElementById("saveCloudKey").value = "";
+                document.getElementById("saveCloudVal").value = "";
+            }
+        }
+    </script>
     <style type="text/css">
         .success { background-color: chartreuse; color: #898989;}
 
@@ -784,15 +798,15 @@
                                 <option value="1">ApplicationForUser</option>
                             </select>
                             <label for="mimeType">MIME Type:</label>
-                            <select name="mimeType" >
+                            <select id="saveLocalMime" name="mimeType" >
                                 <option value="text/plain">Plain Text</option>
                                 <option value="application/json">JSON</option>
                                 <option value="image/png">PNG</option>
                                 <option value="image/jpg">JPEG</option>
                                 <option value="application/octet-stream">Binary Data</option>
                             </select>
-                            <input type="text" name="key" placeholder="KEY"/>
-                            <input type="text" name="value" placeholder="VALUE"/>
+                            <input id="saveLocalKey" type="text" name="key" placeholder="KEY"/>
+                            <input id="saveLocalVal" type="text" name="value" placeholder="VALUE"/>
                             <textarea class='error' style="display:none;" readonly=""></textarea>
                         </a>
                     </li>
@@ -803,7 +817,7 @@
                                 <option value="0">Application</option>
                                 <option value="1">ApplicationForUser</option>
                             </select>
-                            <input type="text" name="key" placeholder="KEY"/>
+                            <input type="search" name="key" placeholder="KEY"/>
                             <textarea class='error' style="display:none;" readonly=""></textarea>
                         </a>
                     </li>
@@ -852,15 +866,15 @@
                                 <option value="2">ApplicationForUser</option>
                             </select>
                             <label for="mimeType">MIME Type:</label>
-                            <select name="mimeType" >
+                            <select id="saveCloudMime" name="mimeType" >
                                 <option value="text/plain">Plain Text</option>
                                 <option value="application/json">JSON</option>
                                 <option value="image/png">PNG</option>
                                 <option value="image/jpg">JPEG</option>
                                 <option value="application/octet-stream">Binary Data</option>
                             </select>
-                            <input type="text" name="key" placeholder="KEY"/>
-                            <input type="text" name="value" placeholder="VALUE"/>
+                            <input id="saveCloudKey" type="text" name="key" placeholder="KEY"/>
+                            <input id="saveCloudVal" type="text" name="value" placeholder="VALUE"/>
                             <textarea class='error' style="display:none;" readonly=""></textarea>
                         </a>
                     </li>
@@ -872,7 +886,7 @@
                                 <option value="1">Application</option>
                                 <option value="2">ApplicationForUser</option>
                             </select>
-                            <input type="text" name="key" placeholder="KEY"/>
+                            <input type="search" name="key" placeholder="KEY"/>
                             <textarea class='error' style="display:none;" readonly=""></textarea>
                         </a>
                     </li>
