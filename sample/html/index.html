@@ -405,7 +405,7 @@
                                   
                 var segment = thisElement.find("select[name='segmentType']").val();
                 var mimeType = thisElement.find("select[name='mimeType']").val();
-                var key = thisElement.find("input[name='key']").val().trim();
+                var key = thisElement.find("input[name='key']").val();
                 var value = thisElement.find("input[name='value']").val();
                           
                 MASSecureLocalStorage.save(function (result) {
@@ -428,7 +428,7 @@
                 var MASSecureLocalStorage = new MASStoragePlugin.MASSecureLocalStorage();
                                  
                 var segment = thisElement.find("select[name='segmentType']").val();
-                var key = thisElement.find("input[name='key']").val().trim();
+                var key = thisElement.find("input[name='key']").val();
                                  
                 MASSecureLocalStorage.findByUsingKeyAndMode(function (result) {
                     
@@ -454,7 +454,7 @@
                 var MASSecureLocalStorage = new MASStoragePlugin.MASSecureLocalStorage();
                                  
                 var segment = thisElement.find("select[name='segmentType']").val();
-                var key = thisElement.find("input[name='key']").val().trim();
+                var key = thisElement.find("input[name='key']").val();
                                  
                 MASSecureLocalStorage.deleteByUsingKeyAndMode(function (result) {
                     
@@ -522,7 +522,7 @@
                                                
                 var segment = thisElement.find("select[name='segmentType']").val();
                 var mimeType = thisElement.find("select[name='mimeType']").val();
-                var key = thisElement.find("input[name='key']").val().trim();
+                var key = thisElement.find("input[name='key']").val();
                 var value = thisElement.find("input[name='value']").val();
                                                
                 MASSecureCloudStorage.save(function (result) {
@@ -545,7 +545,7 @@
                 var MASSecureCloudStorage = new MASStoragePlugin.MASSecureCloudStorage();
                                                
                 var segment = thisElement.find("select[name='segmentType']").val();
-                var key = thisElement.find("input[name='key']").val().trim();
+                var key = thisElement.find("input[name='key']").val();
                                                
                 MASSecureCloudStorage.findByUsingKeyAndMode(function (result) {
                                                                                            
@@ -571,7 +571,7 @@
                 var MASSecureCloudStorage = new MASStoragePlugin.MASSecureCloudStorage();
                                  
                 var segment = thisElement.find("select[name='segmentType']").val();
-                var key = thisElement.find("input[name='key']").val().trim();
+                var key = thisElement.find("input[name='key']").val();
                                  
                 MASSecureCloudStorage.deleteByUsingKeyAndMode(function (result) {
                     

@@ -55,11 +55,6 @@ module.exports = MASStoragePlugin = {
     MASSecureLocalStorage: function () {
 		'use strict';
         this.save = function (successHandler, errorHandler, mime, key, data, mode) {
-            if(key.indexOf(' ') >= 0) {
-                return errorHandler({
-                    errorMessage: "Whitespaces are not allowed in keys"
-                });
-            }
             return Cordova.exec(successHandler, errorHandler, "MASStoragePlugin", "saveToLocal", [mime, key, data, mode]);
         };
 
@@ -72,11 +67,6 @@ module.exports = MASStoragePlugin = {
             // };
 
         this.findByUsingKeyAndMode = function (successHandler, errorHandler, key, mode) {
-            if(key.indexOf(' ') >= 0) {
-                return errorHandler({
-                    errorMessage: "Whitespaces are not allowed in keys"
-                });
-            }            
             return Cordova.exec(successHandler, errorHandler, "MASStoragePlugin", "findByUsingKeyAndModeLocal", [key, mode]);
         };
 
@@ -89,11 +79,6 @@ module.exports = MASStoragePlugin = {
             // };
 
         this.deleteByUsingKeyAndMode = function (successHandler, errorHandler, key, mode) {
-            if(key.indexOf(' ') >= 0) {
-                return errorHandler({
-                    errorMessage: "Whitespaces are not allowed in keys"
-                });
-            }            
             return Cordova.exec(successHandler, errorHandler, "MASStoragePlugin", "deleteByUsingKeyAndModeLocal", [key, mode]);
         };
 
@@ -112,20 +97,10 @@ module.exports = MASStoragePlugin = {
     MASSecureCloudStorage: function () {
 		'use strict';
         this.save = function (successHandler, errorHandler, mime, key, data, mode) {
-            if(key.indexOf(' ') >= 0) {
-                return errorHandler({
-                    errorMessage: "Whitespaces are not allowed in keys"
-                });
-            }
             return Cordova.exec(successHandler, errorHandler, "MASStoragePlugin", "saveToCloud", [mime, key, data, mode]);
         };
 
         this.findByUsingKeyAndMode = function (successHandler, errorHandler, key, mode) {
-            if(key.indexOf(' ') >= 0) {
-                return errorHandler({
-                    errorMessage: "Whitespaces are not allowed in keys"
-                });
-            }
             return Cordova.exec(successHandler, errorHandler, "MASStoragePlugin", "findByUsingKeyAndModeCloud", [key, mode]);
         };
 
@@ -138,11 +113,6 @@ module.exports = MASStoragePlugin = {
             // };
 
         this.deleteByUsingKeyAndMode = function (successHandler, errorHandler, key, mode) {
-            if(key.indexOf(' ') >= 0) {
-                return errorHandler({
-                    errorMessage: "Whitespaces are not allowed in keys"
-                });
-            }
             return Cordova.exec(successHandler, errorHandler, "MASStoragePlugin", "deleteByUsingKeyAndModeCloud", [key, mode]);
         };
 
