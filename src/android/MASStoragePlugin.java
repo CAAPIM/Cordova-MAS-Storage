@@ -17,33 +17,31 @@ import org.json.JSONException;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by trima09 on 10/13/2016.
- */
+
 
 public class MASStoragePlugin extends CordovaPlugin {
 
     private static final String TAG = MASStoragePlugin.class.getCanonicalName();
 
-    private static final Map<String, Command> commands = new HashMap();
+    private static final Map<String, StorageCommand> storageCommands = new HashMap();
 
     static {
         // Commands for Local Store and Fetch
-        add(new MASSecureLocalStorageCommand.SaveCommand());
-        add(new MASSecureLocalStorageCommand.FindByKeyCommand());
-        add(new MASSecureLocalStorageCommand.DeleteCommand());
-        add(new MASSecureLocalStorageCommand.KeySetCommand());
-        add(new MASSecureLocalStorageCommand.DeleteAllCommand());
+        add(new MASSecureLocalStorageCommand.SaveStorageCommand());
+        add(new MASSecureLocalStorageCommand.FindByKeyStorageCommand());
+        add(new MASSecureLocalStorageCommand.DeleteStorageCommand());
+        add(new MASSecureLocalStorageCommand.KeySetStorageCommand());
+        add(new MASSecureLocalStorageCommand.DeleteAllStorageCommand());
 
         // Commands for Cloud Store and Fetch
-        add(new MASSecureStorageCommand.SaveCommand());
-        add(new MASSecureStorageCommand.FindByKeyCommand());
-        add(new MASSecureStorageCommand.DeleteCommand());
-        add(new MASSecureStorageCommand.KeySetCommand());
+        add(new MASSecureStorageCommand.SaveStorageCommand());
+        add(new MASSecureStorageCommand.FindByKeyStorageCommand());
+        add(new MASSecureStorageCommand.DeleteStorageCommand());
+        add(new MASSecureStorageCommand.KeySetStorageCommand());
     }
 
-    private static void add(Command command) {
-        commands.put(command.getAction(), command);
+    private static void add(StorageCommand storageCommand) {
+        storageCommands.put(storageCommand.getAction(), storageCommand);
     }
 
     @Override
@@ -54,10 +52,10 @@ public class MASStoragePlugin extends CordovaPlugin {
     @Override
     public boolean execute(String action, final JSONArray args, final CallbackContext callbackContext) throws JSONException {
 
-        Command command = commands.get(action);
-        if (command != null) {
+        StorageCommand storageCommand = storageCommands.get(action);
+        if (storageCommand != null) {
             try {
-                command.execute(webView.getContext(), args, callbackContext);
+                storageCommand.execute(webView.getContext(), args, callbackContext);
                 return true;
             } catch (Throwable t) {
                 Log.e(TAG, t.getMessage(), t);
