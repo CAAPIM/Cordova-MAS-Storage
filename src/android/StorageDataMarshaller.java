@@ -14,11 +14,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by trima09 on 10/25/2016.
- */
 
-public class StorageDataMarshaller {
+class StorageDataMarshaller {
 
     private static List<DataMarshaller> marshallers = new ArrayList<>();
 

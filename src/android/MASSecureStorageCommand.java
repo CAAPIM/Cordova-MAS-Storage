@@ -22,14 +22,11 @@ import org.json.JSONObject;
 
 import java.util.Set;
 
-/**
- * Created by trima09 on 10/13/2016.
- */
 
 public class MASSecureStorageCommand {
     private static final String TAG = MASSecureStorageCommand.class.getCanonicalName();
 
-    public static class SaveCommand extends Command {
+    public static class SaveStorageCommand extends StorageCommand {
 
         @Override
         public void execute(Context context, JSONArray args, final CallbackContext callbackContext) {
@@ -38,7 +35,6 @@ public class MASSecureStorageCommand {
                 String key = args.optString(1);
                 Object data = args.opt(2);
                 int segment_0 = args.getInt(3);
-              //  int segment = segment_0 == 1 ? MASConstants.MAS_USER : (segment_0 == 2 ? MASConstants.MAS_APPLICATION : MASConstants.MAS_USER | MASConstants.MAS_APPLICATION);
                 int segment=fetchSegmentEnum(segment_0);
                 MASCallback<Void> callback = new MASCallback<Void>() {
 
@@ -66,23 +62,18 @@ public class MASSecureStorageCommand {
         }
     }
 
-    public static class FindByKeyCommand extends Command {
+    public static class FindByKeyStorageCommand extends StorageCommand {
         @Override
         public void execute(Context context, JSONArray args, final CallbackContext callbackContext) {
             try {
                 MASStorage storage = new MASSecureStorage();
                 String key = args.optString(0);
                 int segment_0 = args.getInt(1);
-                //int segment = segment_0 == 1 ? MASConstants.MAS_USER : (segment_0 == 2 ? MASConstants.MAS_APPLICATION : MASConstants.MAS_USER | MASConstants.MAS_APPLICATION);
                 int segment=fetchSegmentEnum(segment_0);
                 MASCallback callback = new MASCallback() {
 
                     @Override
                     public void onSuccess(Object result) {
-                        /*if (result == null) {
-                            callbackContext.error(getErrorJson(MAGErrorCode.UNKNOWN, "Failed to GET object from cloud storage. Error #: unknown error", null));
-                            return;
-                        }*/
                         JSONObject response = null;
                         try {
                             response = getResultJson(result);
@@ -110,14 +101,13 @@ public class MASSecureStorageCommand {
         }
     }
 
-    public static class DeleteCommand extends Command {
+    public static class DeleteStorageCommand extends StorageCommand {
         @Override
         public void execute(Context context, JSONArray args, final CallbackContext callbackContext) {
             try {
                 MASStorage storage = new MASSecureStorage();
                 String key = args.optString(0);
                 int segment_0 = args.getInt(1);
-               // int segment = segment_0 == 1 ? MASConstants.MAS_USER : (segment_0 == 2 ? MASConstants.MAS_APPLICATION : MASConstants.MAS_USER | MASConstants.MAS_APPLICATION);
                 int segment=fetchSegmentEnum(segment_0);
                 MASCallback<Void> callback = new MASCallback<Void>() {
 
@@ -144,13 +134,12 @@ public class MASSecureStorageCommand {
         }
     }
 
-    public static class KeySetCommand extends Command {
+    public static class KeySetStorageCommand extends StorageCommand {
         @Override
         public void execute(Context context, JSONArray args, final CallbackContext callbackContext) {
             try {
                 MASStorage storage = new MASSecureStorage();
                 int segment_0 = args.getInt(0);
-               // int segment = segment_0 == 1 ? MASConstants.MAS_USER : (segment_0 == 2 ? MASConstants.MAS_APPLICATION : MASConstants.MAS_USER | MASConstants.MAS_APPLICATION);
                 int segment=fetchSegmentEnum(segment_0);
                 MASCallback<Set<String>> callback = new MASCallback<Set<String>>() {
 
@@ -179,13 +168,13 @@ public class MASSecureStorageCommand {
     private static @MASStorageSegment int fetchSegmentEnum(int segment){
         int resultSegment;
         switch(segment){
-            case MASCordovaConstants.CORDOVA_MAS_CLOUD_STORAGE_SEGMENT_USER:
+            case MASCordovaStorageConstants.CORDOVA_MAS_CLOUD_STORAGE_SEGMENT_USER:
                 resultSegment=MASConstants.MAS_USER;
                 break;
-            case MASCordovaConstants.CORDOVA_MAS_CLOUD_STORAGE_SEGMENT_APPLICATION:
+            case MASCordovaStorageConstants.CORDOVA_MAS_CLOUD_STORAGE_SEGMENT_APPLICATION:
                 resultSegment=MASConstants.MAS_APPLICATION;
                 break;
-            case MASCordovaConstants.CORDOVA_MAS_CLOUD_STORAGE_SEGMENT_APPLICATION_FOR_USER:
+            case MASCordovaStorageConstants.CORDOVA_MAS_CLOUD_STORAGE_SEGMENT_APPLICATION_FOR_USER:
                 resultSegment=MASConstants.MAS_USER | MASConstants.MAS_APPLICATION;
                 break;
             default:
