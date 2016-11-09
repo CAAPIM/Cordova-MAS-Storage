@@ -577,6 +577,11 @@
 
             function displayError(element, error)
             {
+                if(typeof error === 'undefined' || typeof error.errorMessage === 'undefined' ){
+                    error={
+                        errorMessage:"Unknown error"
+                    }
+                }
                 element.find("textarea.error").show();
                 element.find("textarea.error").html(error.errorMessage);
             }
