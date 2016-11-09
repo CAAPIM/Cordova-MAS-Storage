@@ -304,6 +304,96 @@
                     displayError(thisElement, error);
                 });
             });
+
+            $("#isSessionLocked").bind("click",function(event,ui){
+                if($(event.target).context.tagName != 'A') return;
+
+                $(this).find("textarea.error").hide();
+
+                var thisElement = $(this);
+                var MASUser = new MASPlugin.MASUser();
+
+                MASUser.isSessionLocked(function (result){
+                    thisElement.removeClass("succes").removeClass("failure").addClass("success");
+                    displayResult(thisElement, result);
+                },
+                function (error){
+                    thisElement.removeClass("succes").removeClass("failure").addClass("failure");
+                    displayError(thisElement, error);
+                });
+            });
+
+            $("#lockSession").bind("click",function(event,ui){
+                if($(event.target).context.tagName != 'A') return;
+
+                $(this).find("textarea.error").hide();
+
+                var thisElement = $(this);
+                var MASUser = new MASPlugin.MASUser();
+
+                MASUser.lockSession(function (result){
+                    thisElement.removeClass("succes").removeClass("failure").addClass("success");
+                    displayResult(thisElement, result);
+                },
+                function (error){
+                    thisElement.removeClass("succes").removeClass("failure").addClass("failure");
+                    displayError(thisElement, error);
+                });
+            });
+
+            $("#unlockSession").bind("click",function(event,ui){
+                if($(event.target).context.tagName != 'A') return;
+
+                $(this).find("textarea.error").hide();
+
+                var thisElement = $(this);
+                var MASUser = new MASPlugin.MASUser();
+
+                MASUser.unlockSession(function (result){
+                    thisElement.removeClass("succes").removeClass("failure").addClass("success");
+                    displayResult(thisElement, result);
+                },
+                function (error){
+                    thisElement.removeClass("succes").removeClass("failure").addClass("failure");
+                    displayError(thisElement, error);
+                });
+            });
+
+            $("#unlockSessionWithMessage").bind("click",function(event,ui){
+                if($(event.target).context.tagName != 'A') return;
+
+                $(this).find("textarea.error").hide();
+
+                var thisElement = $(this);
+                var MASUser = new MASPlugin.MASUser();
+
+                MASUser.unlockSessionWithMessage(function (result){
+                    thisElement.removeClass("succes").removeClass("failure").addClass("success");
+                    displayResult(thisElement, result);
+                },
+                function (error){
+                    thisElement.removeClass("succes").removeClass("failure").addClass("failure");
+                    displayError(thisElement, error);
+                }, "My Message");
+            });
+
+            $("#removeSessionLock").bind("click",function(event,ui){
+                if($(event.target).context.tagName != 'A') return;
+
+                $(this).find("textarea.error").hide();
+
+                var thisElement = $(this);
+                var MASUser = new MASPlugin.MASUser();
+
+                MASUser.removeSessionLock(function (result){
+                    thisElement.removeClass("succes").removeClass("failure").addClass("success");
+                    displayResult(thisElement, result);
+                },
+                function (error){
+                    thisElement.removeClass("succes").removeClass("failure").addClass("failure");
+                    displayError(thisElement, error);
+                });
+            });
                     
             $("#saveLocal").bind("click",function(event,ui){
                 if($(event.target).context.tagName != 'A') return;
@@ -616,6 +706,20 @@
         }
 
     </script>
+    <script>
+        
+        function clearInputText(sel) {
+            
+            if(sel.id === "saveLocalMime") {
+                document.getElementById("saveLocalKey").value = "";
+                document.getElementById("saveLocalVal").value = "";
+            }
+            else if(sel.id === "saveCloudMime") {
+                document.getElementById("saveCloudKey").value = "";
+                document.getElementById("saveCloudVal").value = "";
+            }
+        }
+    </script>
     <style type="text/css">
         .success { background-color: chartreuse; color: #898989;}
 
@@ -675,6 +779,20 @@
                 </ul>
             </li>
             <li data-role="collapsible" data-iconpos="right" data-inset="false">
+                <h2>MAS Session Locking</h2>
+                <ul data-role="listview" data-theme="b">
+                    <li data-icon="false"><a href="#" id="isSessionLocked">MASUser isSessionLocked<textarea class='error' style="display:none;" readonly=""></textarea></a></li>
+            <li data-icon="false"><a href="#" id="lockSession">MASUser lockSession<textarea class='error' style="display:none;" readonly=""></textarea></a></li>
+            <li data-icon="false"><a href="#" id="unlockSession">MASUser unlockSession<textarea class='error' style="display:none;" readonly=""></textarea></a></li>
+            <li data-icon="false"><a href="#" id="unlockSessionWithMessage">MASUser unlockSessionWithMessage<textarea class='error' style="display:none;" readonly=""></textarea></a></li>
+            <li data-icon="false"><a href="#" id="removeSessionLock">MASUser removeSessionLock<textarea class='error' style="display:none;" readonly=""></textarea></a></li><li data-icon="false"><a href="#" id="isSessionLocked">MASUser isSessionLocked<textarea class='error' style="display:none;" readonly=""></textarea></a></li>
+            <li data-icon="false"><a href="#" id="lockSession">MASUser lockSession<textarea class='error' style="display:none;" readonly=""></textarea></a></li>
+            <li data-icon="false"><a href="#" id="unlockSession">MASUser unlockSession<textarea class='error' style="display:none;" readonly=""></textarea></a></li>
+            <li data-icon="false"><a href="#" id="unlockSessionWithMessage">MASUser unlockSessionWithMessage<textarea class='error' style="display:none;" readonly=""></textarea></a></li>
+            <li data-icon="false"><a href="#" id="removeSessionLock">MASUser removeSessionLock<textarea class='error' style="display:none;" readonly=""></textarea></a></li>
+                </ul>
+            </li>
+            <li data-role="collapsible" data-iconpos="right" data-inset="false">
                 <h2>Secure Local Storage</h2>
                 <ul data-role="listview" data-theme="b">
                     <li data-icon="false">
@@ -685,15 +803,15 @@
                                 <option value="1">ApplicationForUser</option>
                             </select>
                             <label for="mimeType">MIME Type:</label>
-                            <select name="mimeType" >
+                            <select id="saveLocalMime" name="mimeType" >
                                 <option value="text/plain">Plain Text</option>
                                 <option value="application/json">JSON</option>
                                 <option value="image/png">PNG</option>
                                 <option value="image/jpg">JPEG</option>
                                 <option value="application/octet-stream">Binary Data</option>
                             </select>
-                            <input type="text" name="key" placeholder="KEY"/>
-                            <input type="text" name="value" placeholder="VALUE"/>
+                            <input id="saveLocalKey" type="text" name="key" placeholder="KEY"/>
+                            <input id="saveLocalVal" type="text" name="value" placeholder="VALUE"/>
                             <textarea class='error' style="display:none;" readonly=""></textarea>
                         </a>
                     </li>
@@ -704,7 +822,7 @@
                                 <option value="0">Application</option>
                                 <option value="1">ApplicationForUser</option>
                             </select>
-                            <input type="text" name="key" placeholder="KEY"/>
+                            <input type="search" name="key" placeholder="KEY"/>
                             <textarea class='error' style="display:none;" readonly=""></textarea>
                         </a>
                     </li>
@@ -753,15 +871,15 @@
                                 <option value="2">ApplicationForUser</option>
                             </select>
                             <label for="mimeType">MIME Type:</label>
-                            <select name="mimeType" >
+                            <select id="saveCloudMime" name="mimeType" >
                                 <option value="text/plain">Plain Text</option>
                                 <option value="application/json">JSON</option>
                                 <option value="image/png">PNG</option>
                                 <option value="image/jpg">JPEG</option>
                                 <option value="application/octet-stream">Binary Data</option>
                             </select>
-                            <input type="text" name="key" placeholder="KEY"/>
-                            <input type="text" name="value" placeholder="VALUE"/>
+                            <input id="saveCloudKey" type="text" name="key" placeholder="KEY"/>
+                            <input id="saveCloudVal" type="text" name="value" placeholder="VALUE"/>
                             <textarea class='error' style="display:none;" readonly=""></textarea>
                         </a>
                     </li>
@@ -773,7 +891,7 @@
                                 <option value="1">Application</option>
                                 <option value="2">ApplicationForUser</option>
                             </select>
-                            <input type="text" name="key" placeholder="KEY"/>
+                            <input type="search" name="key" placeholder="KEY"/>
                             <textarea class='error' style="display:none;" readonly=""></textarea>
                         </a>
                     </li>
