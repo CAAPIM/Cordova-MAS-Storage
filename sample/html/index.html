@@ -803,7 +803,7 @@
                                 <option value="1">ApplicationForUser</option>
                             </select>
                             <label for="mimeType">MIME Type:</label>
-                            <select id="saveLocalMime" name="mimeType" >
+                            <select id="saveLocalMime" name="mimeType" onchange="clearInputText(this);" >
                                 <option value="text/plain">Plain Text</option>
                                 <option value="application/json">JSON</option>
                                 <option value="image/png">PNG</option>
@@ -871,7 +871,7 @@
                                 <option value="2">ApplicationForUser</option>
                             </select>
                             <label for="mimeType">MIME Type:</label>
-                            <select id="saveCloudMime" name="mimeType" >
+                            <select id="saveCloudMime" name="mimeType" onchange="clearInputText(this);" >
                                 <option value="text/plain">Plain Text</option>
                                 <option value="application/json">JSON</option>
                                 <option value="image/png">PNG</option>
