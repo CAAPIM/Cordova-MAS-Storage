@@ -7,7 +7,9 @@
 
 package com.ca.mas.cordova.storage;
 
-
+/**
+ * MAS Cordova Storage constants mapped at the js layer
+ */
 public class MASCordovaStorageConstants {
 
     public static final int CORDOVA_MAS_LOCAL_STORAGE_SEGMENT_APPLICATION=0;
