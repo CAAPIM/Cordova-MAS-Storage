@@ -22,10 +22,15 @@ import org.json.JSONObject;
 
 import java.util.Set;
 
-
+/**
+ * {@link MASSecureStorageCommand} contains {@link StorageCommand} implementations related to {@link MASSecureStorage}
+ */
 public class MASSecureStorageCommand {
     private static final String TAG = MASSecureStorageCommand.class.getCanonicalName();
 
+    /**
+     * {@link SaveStorageCommand} saves the key value pair based on the segment passed to the cloud
+     */
     public static class SaveStorageCommand extends StorageCommand {
 
         @Override
@@ -61,7 +66,9 @@ public class MASSecureStorageCommand {
             return "saveToCloud";
         }
     }
-
+    /**
+     * {@link FindByKeyStorageCommand} finds the value based on the segment and key passed from the cloud
+     */
     public static class FindByKeyStorageCommand extends StorageCommand {
         @Override
         public void execute(Context context, JSONArray args, final CallbackContext callbackContext) {
@@ -100,7 +107,9 @@ public class MASSecureStorageCommand {
             return "findByUsingKeyAndModeCloud";
         }
     }
-
+    /**
+     * {@link DeleteStorageCommand} deletes the value based on the segment and key passed from the cloud
+     */
     public static class DeleteStorageCommand extends StorageCommand {
         @Override
         public void execute(Context context, JSONArray args, final CallbackContext callbackContext) {
@@ -134,6 +143,9 @@ public class MASSecureStorageCommand {
         }
     }
 
+    /**
+     * {@link KeySetStorageCommand} fetches all the keys present from the cloud
+     */
     public static class KeySetStorageCommand extends StorageCommand {
         @Override
         public void execute(Context context, JSONArray args, final CallbackContext callbackContext) {

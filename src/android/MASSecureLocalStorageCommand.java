@@ -22,10 +22,15 @@ import org.json.JSONObject;
 
 import java.util.Set;
 
-
+/**
+ * {@link MASSecureLocalStorageCommand} contains {@link StorageCommand} implementations related to {@link MASSecureLocalStorage}
+ */
 public class MASSecureLocalStorageCommand {
     private static final String TAG = MASSecureLocalStorageCommand.class.getCanonicalName();
 
+    /**
+     * {@link SaveStorageCommand} saves the key value pair based on the segment passed to local
+     */
     public static class SaveStorageCommand extends StorageCommand {
 
         @Override
@@ -61,6 +66,9 @@ public class MASSecureLocalStorageCommand {
         }
     }
 
+    /**
+     * {@link FindByKeyStorageCommand} finds the value based on the segment and key passed from the local
+     */
     public static class FindByKeyStorageCommand extends StorageCommand {
         @Override
         public void execute(Context context, JSONArray args, final CallbackContext callbackContext) {
@@ -100,7 +108,9 @@ public class MASSecureLocalStorageCommand {
             return "findByUsingKeyAndModeLocal";
         }
     }
-
+    /**
+     * {@link DeleteStorageCommand} deletes the value based on the segment and key passed from the local
+     */
     public static class DeleteStorageCommand extends StorageCommand {
         @Override
         public void execute(Context context, JSONArray args, final CallbackContext callbackContext) {
@@ -134,6 +144,9 @@ public class MASSecureLocalStorageCommand {
         }
     }
 
+    /**
+     * {@link DeleteAllStorageCommand} deletes the all the keys present from the local
+     */
     public static class DeleteAllStorageCommand extends StorageCommand {
         @Override
         public void execute(Context context, JSONArray args, final CallbackContext callbackContext) {
@@ -165,7 +178,9 @@ public class MASSecureLocalStorageCommand {
             return "deleteAllUsingModeLocal";
         }
     }
-
+    /**
+     * {@link KeySetStorageCommand} fetches all the keys present from the local
+     */
     public static class KeySetStorageCommand extends StorageCommand {
         @Override
         public void execute(Context context, JSONArray args, final CallbackContext callbackContext) {
