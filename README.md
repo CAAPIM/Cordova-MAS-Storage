@@ -10,6 +10,7 @@ The MAS-Storage-Cordova plugin provides the following features:
 
 * Local Storage
 * Cloud Storage
+
 *********************************************************
 
 ## Get Started
