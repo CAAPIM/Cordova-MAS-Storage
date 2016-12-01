@@ -21,56 +21,85 @@
 #pragma mark - LocalStorage
 
 #pragma mark - Save/Update methods
-
+/**
+ *  Save to local database
+ */
 - (void)saveToLocal:(CDVInvokedUrlCommand*)command;
 
-
+/**
+ *  Save securely to local database
+ */
 - (void)saveSecurelyToLocal:(CDVInvokedUrlCommand*)command;
 
 
 #pragma mark - Find methods
 
+/**
+ *  Search local database for key in given mode
+ */
 - (void)findByUsingKeyAndModeLocal:(CDVInvokedUrlCommand*)command;
 
-
+/**
+ *  List all entries in given mode
+ */
 - (void)findAllUsingModeLocal:(CDVInvokedUrlCommand*)command;
 
 
 #pragma mark - Delete methods
 
+/**
+ *  Delete a key in given mode
+ */
 - (void)deleteByUsingKeyAndModeLocal:(CDVInvokedUrlCommand*)command;
 
-
+/**
+ *  Delete all entries in given mode
+ */
 - (void)deleteAllUsingModeLocal:(CDVInvokedUrlCommand*)command;
 
 
 #pragma mark - keySet methods
-
+/**
+ *  List all keys in given mode
+ */
 - (void)keySetForModeLocal:(CDVInvokedUrlCommand*)command;
 
 
 #pragma mark - CloudStorage
 
 #pragma mark - Save/Update methods
-
+/**
+ *  Save to cloud
+ */
 - (void)saveToCloud:(CDVInvokedUrlCommand*)command;
 
 
 #pragma mark - Find methods
 
+/**
+ *  Search cloud for key in given mode
+ */
 - (void)findByUsingKeyAndModeCloud:(CDVInvokedUrlCommand*)command;
 
-
+/**
+ *  List all entries in given mode
+ */
 - (void)findAllUsingModeCloud:(CDVInvokedUrlCommand*)command;
 
 
 #pragma mark - Delete methods
 
+/**
+ *  Delete a key in given mode
+ */
 - (void)deleteByUsingKeyAndModeCloud:(CDVInvokedUrlCommand*)command;
 
 
 #pragma mark - keySet methods
 
+/**
+ *  List all keys in given mode
+ */
 - (void)keySetForModeCloud:(CDVInvokedUrlCommand*)command;
 
 
