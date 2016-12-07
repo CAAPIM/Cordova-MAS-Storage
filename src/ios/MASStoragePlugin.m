@@ -523,15 +523,15 @@ static NSString *const MASStoragePluginMimeTypeJPG = @"image/jpg";
             NSString *base64String =
             [[NSString alloc] initWithData:imageData encoding:NSUTF8StringEncoding];
             
-            if (base64String) {
-                
-                NSURL *imageUrl = [NSURL URLWithString:base64String];
-                imageData = [NSData dataWithContentsOfURL:imageUrl];
-            }
+//            if (base64String) {
+//                
+//                NSURL *imageUrl = [NSURL URLWithString:base64String];
+//                imageData = [NSData dataWithContentsOfURL:imageUrl];
+//            }
+//            
+//            NSString *base64Value = [imageData base64EncodedStringWithOptions:kNilOptions];
             
-            NSString *base64Value = [imageData base64EncodedStringWithOptions:kNilOptions];
-            
-            result = [NSDictionary dictionaryWithObjectsAndKeys:mimeType, @"mime", base64Value, @"value", nil];
+            result = [NSDictionary dictionaryWithObjectsAndKeys:mimeType, @"mime", base64String, @"value", nil];
         }
     }
     
