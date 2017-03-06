@@ -51,13 +51,13 @@ module.exports = MASStoragePlugin = {
         },
 
         /**
-         MASSecureLocalStorage which has the interfaces mapped to the native MASStorage class. These functions would store and fetch data from local device store.
+         Stores the data on local devices and fetches data from local device store. The method has the interfaces mapped to the native MASStorage class.
          */
     MASSecureLocalStorage: function () {
 		'use strict';
 
         /**
-        *   Saves the provided data to local storage
+        *   Saves the data to local storage
         *   @memberOf MASStoragePlugin
         *   @param {function} successHandler user defined success callback
         *   @param {function} errorHandler user defined error callback
@@ -71,7 +71,7 @@ module.exports = MASStoragePlugin = {
         };
 
         /**
-        *   Find data using key and mode
+        *   Finds data using key and mode
         *   @memberOf MASStoragePlugin
         *   @param {function} successHandler user defined success callback
         *   @param {function} errorHandler user defined error callback
@@ -83,7 +83,7 @@ module.exports = MASStoragePlugin = {
         };
 
         /**
-        *   Delete data using key and mode
+        *   Deletes data using key and mode
         *   @memberOf MASStoragePlugin
         *   @param {function} successHandler user defined success callback
         *   @param {function} errorHandler user defined error callback
@@ -95,7 +95,7 @@ module.exports = MASStoragePlugin = {
         };
 
         /**
-        *   Delete all data in a mode
+        *   Deletes all data in a mode
         *   @memberOf MASStoragePlugin
         *   @param {function} successHandler user defined success callback
         *   @param {function} errorHandler user defined error callback
@@ -118,13 +118,13 @@ module.exports = MASStoragePlugin = {
     },
 
         /**
-         MASSecureCloudStorage which has the interfaces mapped to the native MASStorage class. These functions would store and fetch data from cloud storage.
+         Stores the data in a cloud and fetches data from cloud. The method has the interfaces mapped to the native MASStorage class. 
          */
     MASSecureCloudStorage: function () {
 		'use strict';
 
         /**
-        *   Saves the provided data to cloud storage
+        *   Saves the data to cloud storage
         *   @memberOf MASStoragePlugin
         *   @param {function} successHandler user defined success callback
         *   @param {function} errorHandler user defined error callback
@@ -138,7 +138,7 @@ module.exports = MASStoragePlugin = {
         };
 
         /**
-        *   Find data using key and mode
+        *   Finds data using key and mode
         *   @memberOf MASStoragePlugin
         *   @param {function} successHandler user defined success callback
         *   @param {function} errorHandler user defined error callback
@@ -150,7 +150,7 @@ module.exports = MASStoragePlugin = {
         };
 
         /**
-        *   Delete data using key and mode
+        *   Deletes data using key and mode
         *   @memberOf MASStoragePlugin
         *   @param {function} successHandler user defined success callback
         *   @param {function} errorHandler user defined error callback
