@@ -6,6 +6,7 @@
 ### New features
 
 - Refactoring the code - Modified sample index.html file to be in sync with latest Foundation APIs.Removed junk code. Removed deprecated class reference from plugin.xml  [US298706]
+- Added Reference Documentation for Cordova APIs [US304202]
 
 ### Deprecated classes
 
@@ -15,15 +16,15 @@
 
 ### Bug fixes
 
-- .
+- NA
 
 ### New features
 
-- .
+- Initial Release for MAS Storage.
 
 ### Deprecated methods
 
-- .
+- NA
 
 
  [mag]: https://docops.ca.com/mag
