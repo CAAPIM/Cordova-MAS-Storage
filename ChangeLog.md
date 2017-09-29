@@ -1,3 +1,13 @@
+# Version 1.5
+
+### Bug fixes
+
+- None
+
+### New features
+
+- Now available as npm package "cordova-plugin-mas-storage".
+
 # Version 1.4
 
 ### Bug fixes

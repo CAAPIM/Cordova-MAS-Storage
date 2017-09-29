@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-mas-storage",
-  "version": "1.0.1",
+  "version": "1.5.0",
   "description": "Cordova MASStorage Plugin",
   "cordova": {
     "id": "cordova-plugin-mas-storage",
