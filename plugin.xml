@@ -13,8 +13,8 @@ xmlns:android="http://schemas.android.com/apk/res/android"
         <clobbers target="MASStoragePlugin" />
     </js-module>
     
-    <dependency id="cordova-plugin-mas-core" url="https://github.com/CAAPIM/Cordova-MAS-Foundation.git" commit="master" />
-    
+    <dependency id="cordova-plugin-mas-core" />
+    <!-- <dependency id="cordova-plugin-mas-core" /> -->
     <!-- iOS -->
     <platform name="ios" >
         <config-file target="config.xml" parent="/*" >
