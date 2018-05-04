@@ -14,7 +14,7 @@ xmlns:android="http://schemas.android.com/apk/res/android"
     </js-module>
     
     <dependency id="cordova-plugin-mas-core" />
-    <!-- <dependency id="cordova-plugin-mas-core" /> -->
+    
     <!-- iOS -->
     <platform name="ios" >
         <config-file target="config.xml" parent="/*" >
