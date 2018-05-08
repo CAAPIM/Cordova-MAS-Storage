@@ -10,7 +10,7 @@
 
 - Config file preference to specify the iOS deployment target.
 
-- CocoaPods integration with framework podspec for 'MASStorage'.
+- CocoaPods integration with framework podspec for iOS 'MASStorage' framework.
 
 
 ### Deprecated classes
