@@ -29,8 +29,7 @@ xmlns:android="http://schemas.android.com/apk/res/android"
         <header-file src="src/ios/MASStoragePlugin.h" />
         <source-file src="src/ios/MASStoragePlugin.m" />
 
-        <!-- Uncomment the belo code - Important before release. -->
-        <!-- <framework src="MASStorage" type="podspec" spec="~> 1.7.00" /> -->
+        <framework src="MASStorage" type="podspec" spec="~> 1.7.00" />
 
     </platform>
 
