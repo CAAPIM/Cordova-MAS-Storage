@@ -1,7 +1,7 @@
 {
   "name": "cordova-plugin-mas-storage",
-  "version": "1.6.10",
-  "description": "Cordova MASStorage Plugin",
+  "version": "1.7.00",
+  "description": "Cordova MAS Storage Plugin",
   "cordova": {
     "id": "cordova-plugin-mas-storage",
     "platforms": [
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/CAAPIM/MAS-Storage-Cordova.git"
+    "url": "git+https://github.com/CAAPIM/Cordova-MAS-Storage.git"
   },
   "keywords": [
     "cordova",
@@ -24,7 +24,7 @@
   "author": "CA Technologies Ltd.",
   "license": "CA Technologies Ltd.",
   "bugs": {
-    "url": "https://github.com/CAAPIM/MAS-Storage-Cordova/issues"
+    "url": "https://github.com/CAAPIM/Cordova-MAS-Storage/issues"
   },
-  "homepage": "https://github.com/CAAPIM/MAS-Storage-Cordova#readme"
+  "homepage": "https://github.com/CAAPIM/Cordova-MAS-Storage#readme"
 }
