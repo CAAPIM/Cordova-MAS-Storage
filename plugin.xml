@@ -13,11 +13,14 @@ xmlns:android="http://schemas.android.com/apk/res/android"
         <clobbers target="MASStoragePlugin" />
     </js-module>
     
-    <dependency id="cordova-plugin-mas-core" url="https://github.com/CAAPIM/Cordova-MAS-Foundation.git" commit="master" />
+    <dependency id="cordova-plugin-mas-core" />
     
     <!-- iOS -->
     <platform name="ios" >
         <config-file target="config.xml" parent="/*" >
+
+            <preference name="deployment-target" value="9.0"/>
+
             <feature name="MASStoragePlugin" >
                 <param name="ios-package" value="MASStoragePlugin"/>
             </feature>
@@ -25,6 +28,9 @@ xmlns:android="http://schemas.android.com/apk/res/android"
         
         <header-file src="src/ios/MASStoragePlugin.h" />
         <source-file src="src/ios/MASStoragePlugin.m" />
+
+        <framework src="MASStorage" type="podspec" spec="~> 1.7.00" />
+
     </platform>
 
     <!-- Android -->
