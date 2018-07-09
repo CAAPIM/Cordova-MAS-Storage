@@ -1,3 +1,18 @@
+# Version 1.7.10
+
+## Bug fixes
+
+- None.
+
+### New features
+
+- None.
+
+### Deprecated classes
+
+- None
+
+
 # Version 1.7
 
 ## Bug fixes
@@ -16,6 +31,7 @@
 ### Deprecated classes
 
 - None
+
 
 # Version 1.6.10
 
@@ -37,6 +53,7 @@
 ### New features
 
 - None
+
 
 # Version 1.5
 
