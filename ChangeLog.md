@@ -9,7 +9,7 @@
 - None.
 
 
-### Deprecated classes
+### Deprecated methods
 
 - None
 
@@ -23,7 +23,7 @@
 
 - None.
 
-### Deprecated classes
+### Deprecated methods
 
 - None
 
@@ -43,7 +43,7 @@
 - CocoaPods integration with framework podspec for iOS 'MASStorage' framework.
 
 
-### Deprecated classes
+### Deprecated methods
 
 - None
 
@@ -90,7 +90,7 @@
 - Refactoring the code - Modified sample index.html file to be in sync with latest Foundation APIs.Removed junk code. Removed deprecated class reference from plugin.xml  [US298706]
 - Added Reference Documentation for Cordova APIs [US304202]
 
-### Deprecated classes
+### Deprecated methods
 
 - None.
 
