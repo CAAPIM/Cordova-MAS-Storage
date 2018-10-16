@@ -8,10 +8,10 @@
  * @class MASStoragePlugin
  * @hideconstructor
  * @example
- * <caption>To get instance of {@link MASSecureLocalStorage} : An interfaces mapped to MASSecureLocalStorage Model of Native and controls Device local storage mechanism</caption>
+ * <caption>To get instance of {@link MASSecureLocalStorage} : An interface that is mapped to MASSecureLocalStorage Model of Native and controls Device local storage mechanism</caption>
  var MASSecureLocalStorage = new MASStoragePlugin.MASSecureLocalStorage();
  * @example
- * <caption>To get instance of {@link MASSecureCloudStorage} : An interfaces mapped to MASSecureCloudStorage Model of Native and controls Cloud storage mechanism</caption>
+ * <caption>To get instance of {@link MASSecureCloudStorage} : An interface that is mapped to MASSecureCloudStorage Model of Native and controls Cloud storage mechanism</caption>
  var MASSecureCloudStorage= new MASStoragePlugin.MASSecureCloudStorage ();
  */
 
@@ -91,10 +91,10 @@ module.exports = MASStoragePlugin = {
         * @memberOf MASSecureLocalStorage
 		* @function save
 		* @instance
-        * @param {successCallbackFunction} successHandler user defined success callback which will be invoked on success scenario.
-        * @param {errorCallbackFunction} errorHandler user defined error callback which will be invoked on failure scenario.
+        * @param {successCallbackFunction} successHandler user defined success callback that is invoked on success scenario.
+        * @param {errorCallbackFunction} errorHandler user defined error callback that is invoked on failure scenario.
         * @param {MASStorageMimeType} mime mime type of the data
-        * @param {string} key key with which the data is to be stored
+        * @param {string} key key that is used to store the data
         * @param {string} data data payload. In case of MimeTypes other than string, convert the payload bytes to Base64 string
         * @param {MASLocalStorageSegment} mode mode in which the data is to be saved
 		* @example
@@ -106,12 +106,12 @@ module.exports = MASStoragePlugin = {
         };
 
         /**
-        * Finds data using key and for a specific {@link MASLocalStorageSegment}
+        * Finds data using key for a specific {@link MASLocalStorageSegment}
         * @memberOf MASSecureLocalStorage
 		* @function findByUsingKeyAndMode
 		* @instance
-        * @param {successCallbackFunction} successHandler user defined success callback which will be invoked on success scenario.
-        * @param {errorCallbackFunction} errorHandler user defined error callback which will be invoked on failure scenario.
+        * @param {successCallbackFunction} successHandler user defined success callback that is invoked on success scenario.
+        * @param {errorCallbackFunction} errorHandler user defined error callback that is invoked on failure scenario.
         * @param {string} key key of the data to be searched
         * @param {MASLocalStorageSegment} mode mode in which the data was saved
 		* @example
@@ -123,12 +123,12 @@ module.exports = MASStoragePlugin = {
         };
 
         /**
-        * Deletes data using key and for a specific {@link MASLocalStorageSegment}
+        * Deletes data using key for a specific {@link MASLocalStorageSegment}
         * @memberOf MASSecureLocalStorage
 		* @function deleteByUsingKeyAndMode
 		* @instance
-        * @param {successCallbackFunction} successHandler user defined success callback which will be invoked on success scenario.
-        * @param {errorCallbackFunction} errorHandler user defined error callback which will be invoked on failure scenario.
+        * @param {successCallbackFunction} successHandler user defined success callback that is invoked on success scenario.
+        * @param {errorCallbackFunction} errorHandler user defined error callback that is invoked on failure scenario.
         * @param {string} key key of the data to be deleted
         * @param {MASLocalStorageSegment} mode mode in which the data was saved
         * @example
@@ -144,8 +144,8 @@ module.exports = MASStoragePlugin = {
         * @memberOf MASSecureLocalStorage
 		* @function deleteAllUsingMode
 		* @instance
-        * @param {successCallbackFunction} successHandler user defined success callback which will be invoked on success scenario.
-        * @param {errorCallbackFunction} errorHandler user defined error callback which will be invoked on failure scenario.
+        * @param {successCallbackFunction} successHandler user defined success callback that is invoked on success scenario.
+        * @param {errorCallbackFunction} errorHandler user defined error callback that is invoked on failure scenario.
         * @param {MASLocalStorageSegment} mode mode for which the data needs to be deleted
 		* @example
 		* var MASSecureLocalStorage = new MASStoragePlugin.MASSecureLocalStorage();
@@ -160,8 +160,8 @@ module.exports = MASStoragePlugin = {
         * @memberOf MASSecureLocalStorage
 		* @function keySetForMode
 		* @instance
-        * @param {successCallbackFunction} successHandler user defined success callback which will be invoked on success scenario.
-        * @param {errorCallbackFunction} errorHandler user defined error callback which will be invoked on failure scenario.
+        * @param {successCallbackFunction} successHandler user defined success callback that is invoked on success scenario.
+        * @param {errorCallbackFunction} errorHandler user defined error callback that is invoked on failure scenario.
         * @param {MASLocalStorageSegment} mode mode for which the key set is required
 		* @example
 		* var MASSecureLocalStorage = new MASStoragePlugin.MASSecureLocalStorage();
@@ -189,10 +189,10 @@ module.exports = MASStoragePlugin = {
         * @memberOf MASSecureCloudStorage
 		* @function save
 		* @instance
-        * @param {successCallbackFunction} successHandler user defined success callback which will be invoked on success scenario.
-        * @param {errorCallbackFunction} errorHandler user defined error callback which will be invoked on failure scenario.
+        * @param {successCallbackFunction} successHandler user defined success callback that is invoked on success scenario.
+        * @param {errorCallbackFunction} errorHandler user defined error callback that is invoked on failure scenario.
         * @param {MASStorageMimeType} mime mime type of the data
-        * @param {string} key key with which the data is to be stored
+        * @param {string} key key that is used to store the data
         * @param {string} data data payload. In case of MimeTypes other than string, convert the payload bytes to Base64 string
         * @param {MASCloudStorageSegment} mode mode in which the data is to be saved
 		* @example
@@ -204,12 +204,12 @@ module.exports = MASStoragePlugin = {
         };
 
         /**
-        * Finds data using key and for a specific {@link MASCloudStorageSegment}
+        * Finds data using key for a specific {@link MASCloudStorageSegment}
         * @memberOf MASSecureCloudStorage
 		* @function findByUsingKeyAndMode
 		* @instance
-        * @param {successCallbackFunction} successHandler user defined success callback which will be invoked on success scenario.
-        * @param {errorCallbackFunction} errorHandler user defined error callback which will be invoked on failure scenario.
+        * @param {successCallbackFunction} successHandler user defined success callback that is invoked on success scenario.
+        * @param {errorCallbackFunction} errorHandler user defined error callback that is invoked on failure scenario.
         * @param {string} key key of the data to be searched
         * @param {MASCloudStorageSegment} mode mode in which the data was saved
 		* @example
@@ -221,12 +221,12 @@ module.exports = MASStoragePlugin = {
         };
 
         /**
-        * Deletes data using key and for a specific {@link MASCloudStorageSegment}
+        * Deletes data using key for a specific {@link MASCloudStorageSegment}
         * @memberOf MASSecureCloudStorage
 		* @function deleteByUsingKeyAndMode
 		* @instance
-        * @param {successCallbackFunction} successHandler user defined success callback which will be invoked on success scenario.
-        * @param {errorCallbackFunction} errorHandler user defined error callback which will be invoked on failure scenario.
+        * @param {successCallbackFunction} successHandler user defined success callback that is invoked on success scenario.
+        * @param {errorCallbackFunction} errorHandler user defined error callback that is invoked on failure scenario.
         * @param {string} key key of the data to be deleted
         * @param {MASCloudStorageSegment} mode mode in which the data was saved
 		* @example
@@ -242,8 +242,8 @@ module.exports = MASStoragePlugin = {
         * @memberOf MASSecureCloudStorage
 		* @function keySetForMode
 		* @instance
-        * @param {successCallbackFunction} successHandler user defined success callback which will be invoked on success scenario.
-        * @param {errorCallbackFunction} errorHandler user defined error callback which will be invoked on failure scenario.
+        * @param {successCallbackFunction} successHandler user defined success callback that is invoked on success scenario.
+        * @param {errorCallbackFunction} errorHandler user defined error callback that is invoked on failure scenario.
         * @param {MASCloudStorageSegment} mode mode for which the key set is required
 		* @example
 		* var MASSecureCloudStorage = new MASStoragePlugin.MASSecureCloudStorage();
