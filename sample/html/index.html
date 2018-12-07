@@ -690,7 +690,7 @@
                     <li data-icon="false"><a href="#" id="startWithDefault">MAS start with default configuration<label><input type="checkbox" name="defaultConfiguration" checked>Default</label><textarea class='error' style="display:none;" readonly=""></textarea></a></li>
                     <li data-icon="false"><a href="#" id="startWithJSON">MAS start with JSON<input type="text" name="jsonObject" placeholder="JSON object in text"/><textarea class='error' style="display:none;" readonly=""></textarea></a></li>
                     <li data-icon="false"><a href="#" id="stop">MAS stop<textarea class='error' style="display:none;" readonly=""></textarea></a></li>
-                    <li data-icon="false"><a href="#" id="userLogin">MASUser login with username and password<input type="text" name="userLoginUsername" placeholder="username"/><input type="text" name="userLoginPassword" placeholder="password"/><textarea class='error' style="display:none;" readonly=""></textarea></a></li>
+                    <li data-icon="false"><a href="#" id="userLogin">MASUser login with username and password<input type="text" name="userLoginUsername" placeholder="userLoginUsername:username"/><input type="text" name="userLoginPassword" placeholder="userLoginUsername:password"/><textarea class='error' style="display:none;" readonly=""></textarea></a></li>
                     <li data-icon="false"><a href="#" id="isUserAuthenticated">MASUser isAuthenticated<textarea class='error' style="display:none;" readonly=""></textarea></a></li>
                     <li data-icon="false"><a href="#" id="isDeviceRegistered">MASDevice isDeviceRegistered<textarea class='error' style="display:none;" readonly=""></textarea></a></li>
                     <li data-role="collapsible" data-iconpos="right" data-inset="false">
@@ -740,8 +740,8 @@
                                 <option value="image/png">PNG</option>
                                 <option value="image/jpg">JPEG</option>                                
                             </select>
-                            <input id="saveLocalKey" type="text" name="key" placeholder="KEY"/>
-                            <input id="saveLocalVal" type="text" name="value" placeholder="VALUE"/>
+                            <input id="saveLocalKey" type="text" name="key" placeholder="saveLocal:KEY"/>
+                            <input id="saveLocalVal" type="text" name="value" placeholder="saveLocal:VALUE"/>
                             <textarea class='error' style="display:none;" readonly=""></textarea>
                         </a>
                     </li>
@@ -752,7 +752,7 @@
                                 <option value="0">Application</option>
                                 <option value="1">ApplicationForUser</option>
                             </select>
-                            <input type="search" name="key" placeholder="KEY"/>
+                            <input type="search" name="key" placeholder="findLocal:KEY"/>
                             <textarea class='error' style="display:none;" readonly=""></textarea>
                         </a>
                     </li>
@@ -763,7 +763,7 @@
                                 <option value="0">Application</option>
                                 <option value="1">ApplicationForUser</option>
                             </select>
-                            <input type="text" name="key" placeholder="KEY"/>
+                            <input type="text" name="key" placeholder="deleteLocal:KEY"/>
                             <textarea class='error' style="display:none;" readonly=""></textarea>
                         </a>
                     </li>
@@ -807,8 +807,8 @@
                                 <option value="image/png">PNG</option>
                                 <option value="image/jpg">JPEG</option>                            
                             </select>
-                            <input id="saveCloudKey" type="text" name="key" placeholder="KEY"/>
-                            <input id="saveCloudVal" type="text" name="value" placeholder="VALUE"/>
+                            <input id="saveCloudKey" type="text" name="key" placeholder="saveCloud:KEY"/>
+                            <input id="saveCloudVal" type="text" name="value" placeholder="saveCloud:VALUE"/>
                             <textarea class='error' style="display:none;" readonly=""></textarea>
                         </a>
                     </li>
@@ -820,7 +820,7 @@
                                 <option value="1">Application</option>
                                 <option value="2">ApplicationForUser</option>
                             </select>
-                            <input type="search" name="key" placeholder="KEY"/>
+                            <input type="search" name="key" placeholder="findCloud:KEY"/>
                             <textarea class='error' style="display:none;" readonly=""></textarea>
                         </a>
                     </li>
@@ -832,7 +832,7 @@
                                 <option value="1">Application</option>
                                 <option value="2">ApplicationForUser</option>
                             </select>
-                            <input type="text" name="key" placeholder="KEY"/>
+                            <input type="text" name="key" placeholder="deleteCloud:KEY"/>
                             <textarea class='error' style="display:none;" readonly=""></textarea>
                         </a>
                     </li>                    
