@@ -12,7 +12,7 @@ Follow these steps for pull requests:
 
 1. Fork the repo and create your branch from `master`.
 2. For any new code, add unit tests.
-3. If you've changed APIs, update code comments in MASStoragePlugin js file.
+3. If you've changed APIs, update code comments in MASStorage js file.
 4. Verify that the test suite passes.
 5. If you haven't already, complete the [Contributor License Agreement ("CLA")][cla].
 
@@ -43,7 +43,7 @@ Before filing a new issue, check Known Issues to see if your problem already exi
 By contributing to the Cordova Mobile SDK, you agree that your contributions will be licensed under its [license][license-link].
 
 
-[community]: https://communities.ca.com/community/ca-api-management-community/content?filterID=contentstatus%5Bpublished%5D~category%5Bca-mobile-api-gateway%5D
+[community]: :https://community.broadcom.com/enterprisesoftware/communities/communityhomeblogs?CommunityKey=0f580f5f-30a4-41de-a75c-e5f433325a18
 [license-link]: /LICENSE
 [cla]: https://www.clahub.com/agreements/CAAPIM/Cordova-MAS-Storage
-[casupport]: https://support.ca.com/irj/portal/implsvcnewcase
+[casupport]: https://casupport.broadcom.com
