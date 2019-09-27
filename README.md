@@ -11,7 +11,7 @@ The MAS-Storage-Cordova framework provides the following features:
 *********************************************************
 
 ## Get Started
-For documentation visit our visit our [developer site](http://mas.ca.com/docs/).
+For documentation visit our visit our [developer site](http://techdocs.broadcom.com/content/broadcom/techdocs/us/en/ca-enterprise-software/layer7-api-management/mobile-sdk-for-ca-mobile-api-gateway/2-0.html).
 *********************************************************
 
 ## How You Can Contribute
@@ -22,7 +22,7 @@ The reference documents for the MAS modules are generated using the JSDoc markdo
 
 To install JSDoc, follow the instructions on [JSDoc](http://usejsdoc.org/) website.
 
-The Cordova reference documents are available at our [mas.ca.com]( http://mas.ca.com/docs/cordova/latest/sdk/) site.
+The Cordova reference documents are available at our [techdocs]( http://mas.ca.com/docs/cordova/latest/sdk/) site.
 
 Example:
 An annotated comment for validateOTP method is as follows:
