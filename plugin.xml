@@ -3,22 +3,21 @@
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
 xmlns:android="http://schemas.android.com/apk/res/android"
            id="cordova-plugin-mas-storage"
-      version="1.9.10">
+      version="2.0.0">
     <name>MASStorage</name>
     <description>Cordova MASStorage Plugin</description>
-    <license>CA Technologies Ltd.</license>
-    <keywords>cordova, MASStorage, CA Technologies</keywords>
+    <license>Broadcom</license>
+    <keywords>cordova, MASStorage, Broadcom</keywords>
 
     <js-module src="www/MASStoragePlugin.js" name="MASStoragePlugin">
         <clobbers target="MASStoragePlugin" />
     </js-module>
     
-    <dependency id="cordova-plugin-mas-core" version="1.9.10" />
+    <dependency id="cordova-plugin-mas-core" version="2.0.0" />
     
     <!-- iOS -->
     <platform name="ios" >
         <config-file target="config.xml" parent="/*" >
-
             <preference name="deployment-target" value="9.0"/>
 
             <feature name="MASStoragePlugin" >
@@ -29,7 +28,14 @@ xmlns:android="http://schemas.android.com/apk/res/android"
         <header-file src="src/ios/MASStoragePlugin.h" />
         <source-file src="src/ios/MASStoragePlugin.m" />
 
-        <framework src="MASStorage" type="podspec" spec="~> 1.9.10" />
+        <podspec> 
+            <config>
+                <source url="https://github.com/CocoaPods/Specs.git"/>
+            </config>
+            <pods use-frameworks="true" >
+                <pod name="MASStorage" spec="~> 2.0.00" />
+            </pods>
+        </podspec>
 
     </platform>
 
