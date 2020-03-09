@@ -1,3 +1,17 @@
+# Version 2.1.00
+
+### Bug fixes
+- None
+
+### New features
+- None
+
+### Deprecated methods
+- None
+
+### Removed methods
+- Cloud Storage Functionality
+
 # Version 2.0.00
 
 ### Bug fixes
