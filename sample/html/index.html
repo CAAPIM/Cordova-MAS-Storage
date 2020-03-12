@@ -471,85 +471,6 @@
                 }, segment);
             });            
                           
-            $("#saveCloud").bind("click",function(event,ui){
-                if($(event.target).context.tagName != 'A') return;
-                $(this).find("textarea.error").hide();
-                var thisElement = $(this);
-
-                var MASSecureCloudStorage = new MASStoragePlugin.MASSecureCloudStorage();
-                                               
-                var segment = thisElement.find("select[name='segmentType']").val();
-                var mimeType = thisElement.find("select[name='mimeType']").val();
-                var key = thisElement.find("input[name='key']").val();
-                var value = thisElement.find("input[name='value']").val();
-                                               
-                MASSecureCloudStorage.save(function (result) {
-                    thisElement.removeClass("success").removeClass("failure").addClass("success");
-                    displayResult(thisElement, result);
-                },
-                function (error) {
-                    thisElement.removeClass("success").removeClass("failure").addClass("failure");
-                    displayError(thisElement, error);
-                }, mimeType, key, value, segment);
-            });
-                          
-            $("#findCloud").bind("click",function(event,ui){
-                if($(event.target).context.tagName != 'A') return;
-                $(this).find("textarea.error").hide();
-                var thisElement = $(this);
-
-                var MASSecureCloudStorage = new MASStoragePlugin.MASSecureCloudStorage();
-                var segment = thisElement.find("select[name='segmentType']").val();
-                var key = thisElement.find("input[name='key']").val();
-                                               
-                MASSecureCloudStorage.findByUsingKeyAndMode(function (result) {
-                    thisElement.removeClass("success").removeClass("failure").addClass("success");
-                    var value = atob(result.value);
-                    result.value = value;
-                    displayResult(thisElement, result.value);
-                },
-                function (error) {
-                    thisElement.removeClass("success").removeClass("failure").addClass("failure");
-                    displayError(thisElement, error);
-                }, key, segment);
-            });
-
-            $("#deleteUsingKeyAndModeCloud").bind("click",function(event,ui){
-                if($(event.target).context.tagName != 'A') return;
-                $(this).find("textarea.error").hide();
-                var thisElement = $(this);
-
-                var MASSecureCloudStorage = new MASStoragePlugin.MASSecureCloudStorage();
-                var segment = thisElement.find("select[name='segmentType']").val();
-                var key = thisElement.find("input[name='key']").val();
-                                 
-                MASSecureCloudStorage.deleteByUsingKeyAndMode(function (result) {
-                    thisElement.removeClass("success").removeClass("failure").addClass("success");
-                    displayResult(thisElement, result);
-                },
-                function (error) {
-                    thisElement.removeClass("success").removeClass("failure").addClass("failure");
-                    displayError(thisElement, error);
-                }, key, segment);
-            });
-
-            $("#keySetCloud").bind("click",function(event,ui){
-                if($(event.target).context.tagName != 'A') return;
-                $(this).find("textarea.error").hide();
-                var thisElement = $(this);
-
-                var MASSecureCloudStorage = new MASStoragePlugin.MASSecureCloudStorage();
-                var segment = thisElement.find("select[name='segmentType']").val();
-                                 
-                MASSecureCloudStorage.keySetForMode(function (result) {
-                    thisElement.removeClass("success").removeClass("failure").addClass("success");
-                    displayResult(thisElement, result);
-                },
-                function (error) {
-                    thisElement.removeClass("success").removeClass("failure").addClass("failure");
-                    displayError(thisElement, error);
-                }, segment);
-            });
 
             function parseRequestResponseType(type){
                 if (type == "json"){
@@ -640,9 +561,6 @@
             if(sel.id === "saveLocalMime") {
                 document.getElementById("saveLocalKey").value = "";
                 document.getElementById("saveLocalVal").value = "";
-            }else if(sel.id === "saveCloudMime") {
-                document.getElementById("saveCloudKey").value = "";
-                document.getElementById("saveCloudVal").value = "";
             }
         }
     </script>
@@ -783,66 +701,6 @@
                             <select id= "localSegmentKeySet" name="segmentType" >
                                 <option value="0">Application</option>
                                 <option value="1">ApplicationForUser</option>
-                            </select>                            
-                            <textarea class='error' style="display:none;" readonly=""></textarea>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li data-role="collapsible" data-iconpos="right" data-inset="false">
-                <h2>Secure Cloud Storage</h2>
-                <ul data-role="listview" data-theme="b">
-                    <li data-icon="false">
-                        <a href="#" id="saveCloud">Save To Cloud
-                            <label for="cloudSegmentSave">MASStorage Cloud Segment:</label>
-                            <select id="cloudSegmentSave" name="segmentType" >
-                                <option value="0">User</option>
-                                <option value="1">Application</option>
-                                <option value="2">ApplicationForUser</option>
-                            </select>
-                            <label for="saveCloudMime">MIME Type:</label>
-                            <select id="saveCloudMime" name="mimeType" onchange="clearInputText(this);" >
-                                <option value="text/plain">Plain Text</option>
-                                <option value="application/json">JSON</option>
-                                <option value="image/png">PNG</option>
-                                <option value="image/jpg">JPEG</option>                            
-                            </select>
-                            <input id="saveCloudKey" type="text" name="key" placeholder="saveCloud:KEY"/>
-                            <input id="saveCloudVal" type="text" name="value" placeholder="saveCloud:VALUE"/>
-                            <textarea class='error' style="display:none;" readonly=""></textarea>
-                        </a>
-                    </li>
-                    <li data-icon="false">
-                        <a href="#" id="findCloud">Find on Cloud
-                            <label for="cloudSegmentFind">MASStorage Cloud Segment:</label>
-                            <select id="cloudSegmentFind" name="segmentType" >
-                                <option value="0">User</option>
-                                <option value="1">Application</option>
-                                <option value="2">ApplicationForUser</option>
-                            </select>
-                            <input type="search" name="key" placeholder="findCloud:KEY"/>
-                            <textarea class='error' style="display:none;" readonly=""></textarea>
-                        </a>
-                    </li>
-                    <li data-icon="false">
-                        <a href="#" id="deleteUsingKeyAndModeCloud">Delete On Cloud
-                            <label for="cloudSegmentDelete">MASStorage Cloud Segment:</label>
-                            <select id="cloudSegmentDelete" name="segmentType" >
-                                <option value="0">User</option>
-                                <option value="1">Application</option>
-                                <option value="2">ApplicationForUser</option>
-                            </select>
-                            <input type="text" name="key" placeholder="deleteCloud:KEY"/>
-                            <textarea class='error' style="display:none;" readonly=""></textarea>
-                        </a>
-                    </li>                    
-                    <li data-icon="false">
-                        <a href="#" id="keySetCloud">CloudStorage Key Set
-                            <label for="cloudSegmentKeys">MASStorage Cloud Segment:</label>
-                            <select id="cloudSegmentKeys" name="segmentType" >
-                                <option value="0">User</option>
-                                <option value="1">Application</option>
-                                <option value="2">ApplicationForUser</option>
                             </select>                            
                             <textarea class='error' style="display:none;" readonly=""></textarea>
                         </a>

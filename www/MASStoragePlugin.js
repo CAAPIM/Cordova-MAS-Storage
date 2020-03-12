@@ -10,10 +10,6 @@
  * @example
  * <caption>To get instance of {@link MASSecureLocalStorage} : An interface that is mapped to MASSecureLocalStorage Model of Native and controls Device local storage mechanism</caption>
  var MASSecureLocalStorage = new MASStoragePlugin.MASSecureLocalStorage();
- * @example
- * <caption>To get instance of {@link MASSecureCloudStorage} : An interface that is mapped to MASSecureCloudStorage Model of Native and controls Cloud storage mechanism</caption>
- var MASSecureCloudStorage= new MASStoragePlugin.MASSecureCloudStorage ();
- */
 
  /**
  * A user defined success callback function. The contract of the function is out of scope for Mobile SDK, but the object passed to that function by Mobile SDK will conform to a structure based on operation type.
@@ -43,21 +39,6 @@ module.exports = MASStoragePlugin = {
 		 MASLocalStorageSegmentApplication: 0,
 		 MASLocalStorageSegmentApplicationForUser: 1
 	 },
-
-	/**
- 	 * The constant which indicates the scope or the segment in which the data will be saved on the cloud.
-	 * @typedef {Object} MASCloudStorageSegment 
-	 * @property {number} MASCloudStorageSegmentUnknown=-1 Unknown Mode
-	 * @property {number} MASCloudStorageSegmentUser=0 Data in this mode is stored and available to a specific User ONLY
-	 * @property {number} MASCloudStorageSegmentApplication=1 Data in this mode is stored and available in an Application Level
-	 * @property {number} MASCloudStorageSegmentApplicationForUser=2 Data in this mode is stored and available in an Application for a specific User
-  	 */
-     MASCloudStorageSegment: {
-         MASCloudStorageSegmentUnknown: -1,
-         MASCloudStorageSegmentUser: 0,
-         MASCloudStorageSegmentApplication: 1,
-         MASCloudStorageSegmentApplicationForUser: 2
-     },
 	
 	/**
  	 * The constant which indicates the mime type of the data that will be saved. The developer can extend this to add more mime types.
@@ -170,87 +151,5 @@ module.exports = MASStoragePlugin = {
         this.keySetForMode = function (successHandler, errorHandler, mode) {
 			return Cordova.exec(successHandler, errorHandler, "MASStoragePlugin", "keySetForModeLocal", [mode]);
         };
-     },
-
-    /**
-	 * @class MASSecureCloudStorage
-	 * @hideconstructor
-	 * @classdesc Stores the data in a cloud and fetches data from cloud. The method has the interfaces mapped to the native MASStorage class. 
-	 * <table>
-	 *	<tr bgcolor="#D3D3D3"><th>MASCloud Storage Construtor</th></tr>
-     *	<tr><td><i>var MASSecureCloudStorage = new MASStoragePlugin.MASSecureCloudStorage();</i></td></tr>
-     * </table>
-     */
-     MASSecureCloudStorage: function () {
-		'use strict';
-
-        /**
-        * Saves the data to cloud storage with a specific {@link MASStorageMimeType} and for a specific {@link MASCloudStorageSegment}
-        * @memberOf MASSecureCloudStorage
-		* @function save
-		* @instance
-        * @param {successCallbackFunction} successHandler user defined success callback that is invoked on success scenario.
-        * @param {errorCallbackFunction} errorHandler user defined error callback that is invoked on failure scenario.
-        * @param {MASStorageMimeType} mime mime type of the data
-        * @param {string} key key that is used to store the data
-        * @param {string} data data payload. In case of MimeTypes other than string, convert the payload bytes to Base64 string
-        * @param {MASCloudStorageSegment} mode mode in which the data is to be saved
-		* @example
-		* var MASSecureCloudStorage = new MASStoragePlugin.MASSecureCloudStorage();
-		* MASSecureCloudStorage.save(function(success){},function(error){},MASStorageMimeType.JSON,"emp_details","{"name":"Jon","age":23}",MASCloudStorageSegment.MASCloudStorageSegmentApplication);
-        */
-        this.save = function (successHandler, errorHandler, mime, key, data, mode) {
-            return Cordova.exec(successHandler, errorHandler, "MASStoragePlugin", "saveToCloud", [mime, key, data, mode]);
-        };
-
-        /**
-        * Finds data using key for a specific {@link MASCloudStorageSegment}
-        * @memberOf MASSecureCloudStorage
-		* @function findByUsingKeyAndMode
-		* @instance
-        * @param {successCallbackFunction} successHandler user defined success callback that is invoked on success scenario.
-        * @param {errorCallbackFunction} errorHandler user defined error callback that is invoked on failure scenario.
-        * @param {string} key key of the data to be searched
-        * @param {MASCloudStorageSegment} mode mode in which the data was saved
-		* @example
-		* var MASSecureCloudStorage = new MASStoragePlugin.MASSecureCloudStorage();
-		* MASSecureCloudStorage.findByUsingKeyAndMode(function(success){},function(error){},"emp_details",MASCloudStorageSegment.MASCloudStorageSegmentApplication);
-        */
-        this.findByUsingKeyAndMode = function (successHandler, errorHandler, key, mode) {
-            return Cordova.exec(successHandler, errorHandler, "MASStoragePlugin", "findByUsingKeyAndModeCloud", [key, mode]);
-        };
-
-        /**
-        * Deletes data using key for a specific {@link MASCloudStorageSegment}
-        * @memberOf MASSecureCloudStorage
-		* @function deleteByUsingKeyAndMode
-		* @instance
-        * @param {successCallbackFunction} successHandler user defined success callback that is invoked on success scenario.
-        * @param {errorCallbackFunction} errorHandler user defined error callback that is invoked on failure scenario.
-        * @param {string} key key of the data to be deleted
-        * @param {MASCloudStorageSegment} mode mode in which the data was saved
-		* @example
-		* var MASSecureCloudStorage = new MASStoragePlugin.MASSecureCloudStorage();
-		* MASSecureCloudStorage.deleteByUsingKeyAndMode(function(success){},function(error){},"emp_details",MASCloudStorageSegment.MASCloudStorageSegmentApplication);
-        */
-        this.deleteByUsingKeyAndMode = function (successHandler, errorHandler, key, mode) {
-            return Cordova.exec(successHandler, errorHandler, "MASStoragePlugin", "deleteByUsingKeyAndModeCloud", [key, mode]);
-        };
-
-        /**
-        * Returns the sets of keys for a specific {@link MASCloudStorageSegment}
-        * @memberOf MASSecureCloudStorage
-		* @function keySetForMode
-		* @instance
-        * @param {successCallbackFunction} successHandler user defined success callback that is invoked on success scenario.
-        * @param {errorCallbackFunction} errorHandler user defined error callback that is invoked on failure scenario.
-        * @param {MASCloudStorageSegment} mode mode for which the key set is required
-		* @example
-		* var MASSecureCloudStorage = new MASStoragePlugin.MASSecureCloudStorage();
-		* MASSecureCloudStorage.keySetForMode(function(success){},function(error){},MASCloudStorageSegment.MASCloudStorageSegmentApplication);
-        */
-        this.keySetForMode = function (successHandler, errorHandler, mode) {
-            return Cordova.exec(successHandler, errorHandler, "MASStoragePlugin", "keySetForModeCloud", [mode]);
-        };
-	 }
+     }
 };
